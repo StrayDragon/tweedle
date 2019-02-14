@@ -17,11 +17,11 @@
 - I want to user can use command follow order by:
   - `dg SUBCMD [ACTION] [OPTIONS]`
 
-- [ ] It can help the user to complete a set of operations with a more concise set of commands
+- [x] It can help the user to complete a set of operations with a more concise set of commands
 
   - Examples:
-    - Use `$ dg blog pb ` to excute `hexo clean ; hexo g -d; hexo clean `
-    - Use `$ dg blog update` to excute  `git add -A;git commit -m 'update blog';git push`
+    - Use `$ dg blog publish ` to excute `hexo clean ; hexo g -d; hexo clean `
+    - Use `$ dg blog finish` to excute  `git add -A;git commit -m 'update blog';git push`
     - ...
 
 - [ ] It can help the users to create a new project from the organized templates
