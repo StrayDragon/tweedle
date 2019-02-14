@@ -13,7 +13,7 @@ class DragonCLI(click.MultiCommand):
         rv = []
         for filename in os.listdir(CMD_FOLDER):
             if filename.endswith('.py') and \
-               filename.startswith('cmd_'):
+                    filename.startswith('cmd_'):
                 rv.append(filename[4:-3])
         rv.sort()
         return rv
