@@ -1,4 +1,5 @@
 import pytest
+from click.testing import CliRunner
 
 
 @pytest.fixture
@@ -7,20 +8,12 @@ def blog_fixture():
 
 
 def test_blog_publish():
-    assert Blog.publish() == True
+    from commands.cmd_blog import publish, Blog
+    runner = CliRunner()
+    after_call = runner.invoke(publish)
+    result = (after_call.exit_code, Blog.PASS in after_call.output)
+    expected = (0, False)
+    assert expected == result
 
-
-class Blog(object):
-    @classmethod
-    def publish(cls):
-        # import os
-        # os.system('hexo clean')
-        # os.system('hexo g -d')
-        # os.system('hexo clean')
-        print('[EXEC] hexo clean ; hexo g -d; hexo clean')
-        return False
-
-    @classmethod
-    def update(cls, git_commit_msg='update blog'):
-        print(f"[EXEC] git add -A;git commit -m '{git_commit_msg}';git push")
-        return False
+# def test_blog_update():
+#     assert Blog.update() is False
