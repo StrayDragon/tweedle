@@ -30,7 +30,7 @@ class DragonCLI(click.MultiCommand):
 
 
 @click.command(cls=DragonCLI)
-@click.version_option('0.1')
+@click.version_option()
 @click.help_option()
 # @click.pass_context
 def cli():
