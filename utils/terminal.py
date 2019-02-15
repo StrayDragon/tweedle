@@ -1,7 +1,7 @@
 import click
 
 
-def log(msg: str, *, font_color: str = None, bold=None, nl=True):
+def log(msg: str, *, font_color: str = None, bold: bool = None, nl: bool = True):
     click.echo(click.style(msg, fg=font_color, bold=bold), nl=nl)
 
 
