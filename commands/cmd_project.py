@@ -17,6 +17,9 @@ def cli():
 @click.option('-T', '--third-party', type=click.Choice(['googletest']))
 def new(project_name, lang, build_tool, third_party):
     """Generate a target project"""
+    import os
+    cur_path = os.getcwd()
+    os.mkdir(os.path.join(cur_path, project_name))
 
     # Display these after success
     log('Generated the project in ', font_color='green', bold=True, nl=False)

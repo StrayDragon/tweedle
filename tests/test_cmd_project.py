@@ -13,7 +13,9 @@ def project_new_runner():
 
 
 def test_passing_only_name(project_new_runner):
-    """ignore other options"""
+    """
+    $ dragon project new test_projected
+    """
     from commands.cmd_project import new
     from utils.testing import ClickDefaultErrorOutput as Error
 
@@ -24,9 +26,15 @@ def test_passing_only_name(project_new_runner):
 
 
 def test_passing_name_and_suited_opt_lang(project_new_runner):
+    """
+    $ dragon project new test_projected --lang cpp
+    """
+    import os
     from commands.cmd_project import new
 
     with project_new_runner.isolated_filesystem():
         result = project_new_runner.invoke(new, shell.to_args('test_projected --lang cpp'))
+        project_root_dir_exist = os.path.exists(os.path.join(os.getcwd(), 'test_projected'))
 
+    assert project_root_dir_exist
     assert 'Generated the project' in result.stdout
