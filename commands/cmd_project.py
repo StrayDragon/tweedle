@@ -10,6 +10,7 @@ def cli():
     pass
 
 
+# TODO:[Refactor] Will delegate to the cookiecutter(https://github.com/audreyr/cookiecutter) project
 @cli.command()
 @click.argument('project_name')
 @click.option('-L', '--lang', type=click.Choice(['cpp']), required=True)

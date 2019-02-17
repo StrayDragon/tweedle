@@ -12,6 +12,7 @@ def project_new_runner():
     print('\nteardown')
 
 
+@pytest.mark.skip('Will rewrite,refer: line 13 in cmd_project')
 def test_passing_only_name(project_new_runner):
     """
     $ dragon project new test_projected
@@ -25,6 +26,7 @@ def test_passing_only_name(project_new_runner):
     assert Error.MISS_OPT in result.stdout
 
 
+@pytest.mark.skip('Will rewrite,refer: line 13 in cmd_project')
 def test_passing_name_and_suited_opt_lang(project_new_runner):
     """
     $ dragon project new test_projected --lang cpp
