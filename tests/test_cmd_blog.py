@@ -1,22 +1,29 @@
 import pytest
 from click.testing import CliRunner
 
+from utils import shell
+from mods.mod_blog import Blog
 
-@pytest.mark.skip(reason="At present, I have not found a suitable way to test real commands...")
-def test_publish():
+
+@pytest.fixture()
+def blog_runner():
+    print('setup')
+    runner = CliRunner()
+    yield runner
+    print('\nteardown')
+
+
+def test_publish(blog_runner):
     from commands.cmd_blog import publish
-    runner = CliRunner()
-    after_call = runner.invoke(publish)
-    result = after_call.exit_code
-    expected = 0
-    assert expected == result
+    with blog_runner.isolated_filesystem():
+        state = blog_runner.invoke(publish, shell.to_args('-P test'))
+    for cmd in Blog.publish_commands:
+        assert cmd in state.output
 
 
-@pytest.mark.skip(reason="At present, I have not found a suitable way to test real commands...")
-def test_finish():
+def test_finish(blog_runner):
     from commands.cmd_blog import finish
-    runner = CliRunner()
-    after_call = runner.invoke(finish)
-    result = after_call.exit_code
-    expected = 0
-    assert expected == result
+    with blog_runner.isolated_filesystem():
+        state = blog_runner.invoke(finish, shell.to_args('-P test'))
+    for cmd in Blog.finish_commands:
+        assert cmd in state.output
