@@ -47,9 +47,13 @@
 
   |`CMD`|`SUBCMD`|`ACTION`|`OPTIONS`|
   |---|---|---|---|
-  |`dg`| `blog` | `p`,  `publish` | |
-  ||  | `u`,  `update`| |
-  |`dg`| `project` | `n`, `new` | `--lang`<br> `--build-tools`<br> `--third-parties`|
+  |`dg`| `blog` | `publish` | |
+  ||  | `update` | |
+  |`dg`| `project` | `new` | `--lang`<br> `--build-tools`<br> `--third-parties`|
+  |`dg`| `bundle` | `new` | |
+  || `export` | `shell` | |
+
+  
 
 ## An index
 ```

@@ -5,9 +5,9 @@
 ---
 
 # **WARNING**: 
-- :warning: Now, **DON'T USE** this tool in important workspace directories, because:
-    - This project is still in the **development** some usages may change in the future.
-    - It has some **destructive** and **unrecoverable** operations.
+:warning: Now, **DON'T USE** this tool in important workspace directories, because:
+- This project is still in the **development** some usages may change in the future.
+- It has some **destructive** and **unrecoverable** operations.
 
 # Install (Dev)
 - For Developer
