@@ -10,7 +10,7 @@
 - It has some **destructive** and **unrecoverable** operations.
 
 # Install (Dev)
-- For Developer
+- For Developer:
 ```bash
  git clone https://github.com/StrayDragon/dragon-cli.git
  cd dragon-cli
