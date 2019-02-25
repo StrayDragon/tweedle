@@ -1,6 +1,6 @@
 import click
 
-from utils.terminal import log
+from utils.terminal import log, Colors
 from utils.shell import current_running_path
 
 
@@ -23,7 +23,7 @@ def new(project_name, lang, build_tool, third_party):
     os.mkdir(os.path.join(cur_path, project_name))
 
     # Display these after success
-    log('Generated the project in ', font_color='green', bold=True, nl=False)
+    log('Generated the project in ', font_color=Colors.Green, bold=True, nl=False)
     log(current_running_path())
     log(f'  Project Name : {project_name}')
     log(f'  Language     : {lang}')
