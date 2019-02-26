@@ -12,6 +12,7 @@ pylint = "*"
 [packages]
 click = "*"
 requests = "*"
+toml = "*"
 
 [requires]
 python_version = "3.7"
