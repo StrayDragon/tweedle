@@ -107,7 +107,7 @@ venv.bak/
 Pipfile.lock
 
 # Vscode
-.vscode/*
+.vscode/
 
 # Jetbrains
-.idea/*
+.idea/
