@@ -1,7 +1,6 @@
 import pytest
 from click.testing import CliRunner
 
-from decorator import check_command
 from utils import shell
 from mods.mod_blog import Blog
 
