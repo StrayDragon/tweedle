@@ -31,3 +31,28 @@ def test_common_cmd(mocker):
         shell.run('ls -l')
         assert mocked.called
         shell.run.assert_called_once_with('ls -l')
+
+
+def test_shell_converter():
+    import toml
+    from munch import Munch
+    from typing import List
+    t = toml.load('res/bundles/dkr.toml')
+    bundle_info = Munch.fromDict(t)
+
+    def export(target: List[Munch], to=None, strategy=None):
+        assert strategy, "Required a strategy for choosing a way to export!"
+        return strategy(target)
+
+    def pack_to_shell(b):
+        res = ''
+        for _ in b:
+            res += _
+        return res
+
+    shells = [
+        f"# {cmd.name}\n{cmd.exec.strip()}\n" for cmd in bundle_info.Scripts]
+
+    expected = """# Startup Tomcat8.5 Web Server and map to port:8888\ndocker run -it -p 8888:8080 tomcat:8.5\n# Startup MySQL Server and map to port:6033\ndocker run --name mysql5.7 -p 6033:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7\n"""
+    result = export(shells, strategy=pack_to_shell)
+    assert result == expected

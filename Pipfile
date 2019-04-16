@@ -9,10 +9,11 @@ pytest-mock = "*"
 pytest-cov = "*"
 autopep8 = "*"
 pylint = "*"
+ipython="*"
 
 [packages]
 click = "*"
-requests = "*"
+munch="*"
 toml = "*"
 
 [requires]
