@@ -1,5 +1,5 @@
 # <p align="center"> Dragon-Cli </p>
-
+[![Build Status](https://travis-ci.org/StrayDragon/dragon-cli.svg?branch=master)](https://travis-ci.org/StrayDragon/dragon-cli)
 - Commands manager and controller.
 - Help you complete a series of commands from other terminal applications.
 ---
