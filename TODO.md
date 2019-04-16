@@ -1,3 +1,6 @@
+# TODO
+- [ ] To remove the `utils.terminal.log()` and replace old one to [`click.secho()`](https://click.palletsprojects.com/en/7.x/api/?highlight=secho#click.secho)
+
 # Commands table
 
 |`CMD`|`SUBCMD`|`ACTION`|`OPTIONS`|`USAGE`|
