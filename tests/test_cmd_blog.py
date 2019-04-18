@@ -1,12 +1,21 @@
+import subprocess
+
 import pytest
 from click.testing import CliRunner
 
 from utils import shell
 from mods.mod_blog import Blog
 
-REQUIRED_COMMAND = 'hexo'
+
+def check_command_invokable(*commands) -> bool:
+    for command in commands:
+        result = subprocess.getstatusoutput(command)
+        if 'not found' in result[1]:
+            return True
+    return False
 
 
+@pytest.fixture(scope="module")
 def blog_runner():
     # Setup
     runner = CliRunner()
@@ -14,7 +23,8 @@ def blog_runner():
     # Tear Down
 
 
-@pytest.mark.skip(f"Command: {REQUIRED_COMMAND} may not satisfied in local environment. skip test!")
+@pytest.mark.skipif(condition=check_command_invokable('hexo'),
+                    reason=f"Command: 'hexo' may not satisfied in local environment. skip test!")
 def test_publish(blog_runner):
     from cmds.cmd_blog import publish
     with blog_runner.isolated_filesystem():
@@ -23,7 +33,8 @@ def test_publish(blog_runner):
         assert cmd in state.output
 
 
-@pytest.mark.skip(f"Command: {REQUIRED_COMMAND} may not satisfied in local environment. skip test!")
+@pytest.mark.skipif(condition=check_command_invokable('hexo', 'git'),
+                    reason=f"Command: 'hexo' or 'git' may not satisfied in local environment. skip test!")
 def test_finish(blog_runner):
     from cmds.cmd_blog import finish
     with blog_runner.isolated_filesystem():
