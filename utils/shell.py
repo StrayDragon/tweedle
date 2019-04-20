@@ -1,7 +1,7 @@
 import os
 import shlex
 import subprocess
-from functools import wraps
+from functools import wraps, partial
 from typing import List
 
 
@@ -17,11 +17,12 @@ def current_running_path() -> str:
     return os.getcwd()
 
 
-def check_external_program(command: str):
+def check_external_program(command: str = None):
     """
     A decorator use to check required commands.
     :param command: program name
     """
+
     #
     # Execute code when define a wrapped function.
     #
@@ -38,5 +39,13 @@ def check_external_program(command: str):
             return f(*args, **kwargs)
 
         return wrapper
+
+    if not isinstance(command, str):
+        print('@check_external_program')
+        # Plan 1
+        # raise Exception('Can not use non-parameters decorator')
+        # Plan 2
+        f = command
+        return f
 
     return decorate
