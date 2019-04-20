@@ -17,15 +17,25 @@ def current_running_path() -> str:
     return os.getcwd()
 
 
-def check_command(command: str):
+def check_external_program(command: str):
+    """
+    A decorator use to check required commands.
+    :param command: program name
+    """
+    #
+    # Execute code when define a wrapped function.
+    #
     def decorate(f):
+        #
+        # Execute code when invoke the wrapped function,
+        #
         result = subprocess.getstatusoutput(command)
 
         @wraps(f)
         def wrapper(*args, **kwargs):
             if 'not found' in result[1]:
-                return f(*args, **kwargs)
-            raise Exception(f"Error: '{command}' is not exist!")
+                raise Exception(f"Error: '{command}' is not exist!")
+            return f(*args, **kwargs)
 
         return wrapper
 
