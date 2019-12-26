@@ -4,7 +4,7 @@ import sys
 import click
 
 CMD_FOLDER = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), 'lib', 'cmds'))
+    os.path.join(os.path.dirname(__file__), 'src', 'cmds'))
 
 
 class DragonCLI(click.MultiCommand):
@@ -21,7 +21,7 @@ class DragonCLI(click.MultiCommand):
         try:
             if sys.version_info[0] == 2:
                 name = name.encode('ascii', 'replace')
-            mod = __import__('lib.cmds.cmd_' + name, None, None, ['cli'])
+            mod = __import__('src.cmds.cmd_' + name, None, None, ['cli'])
         except ImportError as e:
             raise Exception('Subcmd ImportError') from e
         return mod.cli

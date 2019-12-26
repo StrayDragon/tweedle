@@ -1,7 +1,7 @@
 import pytest
 from click.testing import CliRunner
 
-from lib.utils import shell
+from src.utils import shell
 
 toml_txt = """
 # Blog.publish() 
@@ -28,7 +28,7 @@ def test_study_basic():
 def test_common_cmd(mocker):
     runner = CliRunner()
     with runner.isolated_filesystem():
-        mocked = mocker.patch('lib.utils.shell.run')
+        mocked = mocker.patch('src.utils.shell.run')
         shell.run('ls -l')
         assert mocked.called
         shell.run.assert_called_once_with('ls -l')
@@ -39,7 +39,7 @@ def test_shell_converter():
     import toml
     from munch import Munch
     from typing import List
-    t = toml.load('../lib/res/bundles/dkr.toml')
+    t = toml.load('../src/res/bundles/dkr.toml')
     bundle_info = Munch.fromDict(t)
 
     def export(target: List[Munch], to=None, strategy=None):
