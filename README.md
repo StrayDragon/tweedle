@@ -10,13 +10,16 @@
 - It has some **destructive** and **unrecoverable** operations.
 
 # Install (Dev)
-- For Developer:
+For Developer:
+- At first, you need to install [poetry](https://poetry.eustace.io/)
+- Then, you can fork or just clone my repo to modify something:
 ```bash
- git clone https://github.com/StrayDragon/dragon-cli.git
- cd dragon-cli
-  # Python3.7 required, If your pip link this version, 
-  # you can run 'pip install --editable .' directly. 
- python3.7 -m pip install --editable . 
+git clone https://github.com/StrayDragon/dragon-cli.git # master repo
+#git clone https://github.com/<YOUR_GITHUB_NAME>/dragon-cli.git  # fork repo
+
+cd dragon-cli
+poetry install
+poetry run python dragon.py
 ```
 - For User:
  *Coming soon*
