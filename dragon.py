@@ -1,30 +1,18 @@
-import os
-import sys
+from importlib import import_module
+from pathlib import Path
 
 import click
 
-CMD_FOLDER = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), 'src', 'cmds'))
+SUBCMDS_FOLDER = Path('.') / 'src' / 'cmds'
 
 
 class DragonCLI(click.MultiCommand):
     def list_commands(self, ctx):
-        rv = []
-        for filename in os.listdir(CMD_FOLDER):
-            if filename.endswith('.py') and \
-                    filename.startswith('cmd_'):
-                rv.append(filename[4:-3])
-        rv.sort()
-        return rv
+        return [str(x.name)[:-3] for x in SUBCMDS_FOLDER.glob('*.py')]
 
     def get_command(self, ctx, name):
-        try:
-            if sys.version_info[0] == 2:
-                name = name.encode('ascii', 'replace')
-            mod = __import__('src.cmds.cmd_' + name, None, None, ['cli'])
-        except ImportError as e:
-            raise Exception('Subcmd ImportError') from e
-        return mod.cli
+        mod = import_module(name=f'src.cmds.{name}')
+        return getattr(mod, 'cli')
 
 
 @click.command(cls=DragonCLI)

@@ -19,12 +19,12 @@ def test_self_can_startup_well(cli_runner):
 
 
 def test_sub_cmd_can_startup_well(cli_runner):
-    from src.cmds import cmd_project
-    from src.cmds import cmd_blog
+    from src.cmds import project
+    from src.cmds import blog
     results = []
     with cli_runner.isolated_filesystem():
-        results.append(cli_runner.invoke(cmd_project.cli, '--help'))
-        results.append(cli_runner.invoke(cmd_blog.cli, '--help'))
+        results.append(cli_runner.invoke(project.cli, '--help'))
+        results.append(cli_runner.invoke(blog.cli, '--help'))
 
     for result in results:
         assert result.exit_code == 0

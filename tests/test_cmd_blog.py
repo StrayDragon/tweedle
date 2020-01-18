@@ -28,7 +28,7 @@ def blog_runner():
     reason=f"Command: 'hexo' may not satisfied in local environment. skip test!"
 )
 def test_publish(blog_runner):
-    from src.cmds.cmd_blog import publish
+    from src.cmds.blog import publish
     with blog_runner.isolated_filesystem():
         state = blog_runner.invoke(publish, shell.to_args('-P test'))
     for cmd in Blog.publish_commands:
@@ -41,7 +41,7 @@ def test_publish(blog_runner):
     f"Command: 'hexo' or 'git' may not satisfied in local environment. skip test!"
 )
 def test_finish(blog_runner):
-    from src.cmds.cmd_blog import finish
+    from src.cmds.blog import finish
     with blog_runner.isolated_filesystem():
         state = blog_runner.invoke(finish, shell.to_args('-P test'))
     for cmd in Blog.finish_commands:
