@@ -19,7 +19,6 @@ isort = "^4.3.21"
 ipython = "^7.11.1"
 "ruamel.yaml" = "^0.16.5"
 pyyaml = "^5.3"
-jupyter = "^1.0.0"
 
 [tool.poetry.scripts]
 dragon = 'dragon.entry:main'

@@ -2,7 +2,7 @@
 from setuptools import setup
 
 packages = \
-['dragon', 'dragon.cmd', 'dragon.utils']
+['dragon', 'dragon.cmd']
 
 package_data = \
 {'': ['*']}
@@ -29,5 +29,6 @@ setup_kwargs = {
     'entry_points': entry_points,
     'python_requires': '>=3.8,<4.0',
 }
+
 
 setup(**setup_kwargs)
