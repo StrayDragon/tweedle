@@ -1,32 +1,35 @@
-# <p align="center"> Dragon-Cli </p>
+# <p align="center"> Dragon </p>
 [![Build Status](https://travis-ci.org/StrayDragon/dragon.svg?branch=master)](https://travis-ci.org/StrayDragon/dragon)
-- Commands manager and controller.
-- Help you complete a series of commands from other terminal applications.
+<!--TODO:Add more icons--> 
+
+- Configs manager and controller
+<!-- - Commands manager and controller -->
 ---
 
 # **WARNING**: 
 :warning: Now, **DON'T USE** this tool in important workspace directories, because:
-- This project is still in the **development** some usages may change in the future.
+- This project is still in the **development**, and some usages may change in the future.
 - It has some **destructive** and **unrecoverable** operations.
 
 # Install (Dev)
-For Developer:
-- At first, you need to install [poetry](https://poetry.eustace.io/)
-- Then, you can fork or just clone my repo to modify something:
-```bash
-git clone https://github.com/StrayDragon/dragon-cli.git # master repo
-#git clone https://github.com/<YOUR_GITHUB_NAME>/dragon-cli.git  # fork repo
+- For Developer:
+1. At first, you need to install [poetry](https://poetry.eustace.io/)
+2. You can fork or just clone my repo to modify something:
 
-cd dragon-cli
+```bash
+git clone https://github.com/StrayDragon/dragon.git # master repo
+
+cd dragon
 poetry install
-poetry run python dragon.py
+poetry shell
+
+# use it directly and editable
+pip install --editable .
+# or unit test
+pytest
 ```
+
 - For User:
  *Coming soon*
 # Usages:
-## Overall
-  |`CMD`|`SUBCMD`|`ACTION`|`OPTIONS`| `BASEDCMD` |
-  |---|---|---|---|---|
-  |`dragon`| `blog` | `publish` | | `hexo`,`git` |
-  |  |  | `update`|  | `git` | 
-  |`dragon`| `project` | `new` | `--lang`<br> `--build-tool`<br> `--third-party`|  |
+TODO

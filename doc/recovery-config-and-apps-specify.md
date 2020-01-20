@@ -1,7 +1,7 @@
 > When you reinstall your Linux, these bundle of commands will recovery config and some apps conveniently 
 
 # Example:
-> My configs that need to recovery:
+> My configs that need to track and recovery:
 - i3wm
 - i3status
 - compton
@@ -10,8 +10,9 @@
 - ranger
 - pyenv
 - zshrc and OMZ-plugins
-- xmodmap (Esc&Tab)
+- xmodmap (Esc&Tab keymaps change)
 - pip mirror config
+- npm mirror config
 - git mirror config
 
 
