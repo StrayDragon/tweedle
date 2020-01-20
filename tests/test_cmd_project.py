@@ -1,7 +1,7 @@
 import pytest
 from click.testing import CliRunner
 
-from src.utils import shell
+import dragon.utils as shell
 
 
 @pytest.fixture()
@@ -17,8 +17,8 @@ def test_passing_only_name(project_new_runner):
     """
     $ dragon project new test_projected
     """
-    from src.cmds.project import new
-    from src.utils.testing import ClickDefaultErrorOutput as Error
+    from dragon.cmd.project import new
+    from dragon.utils import ClickDefaultErrorOutput as Error
 
     with project_new_runner.isolated_filesystem():
         result = project_new_runner.invoke(new,
@@ -33,7 +33,7 @@ def test_passing_name_and_suited_opt_lang(project_new_runner):
     $ dragon project new test_projected --lang cpp
     """
     import os
-    from src.cmds.project import new
+    from dragon.cmd.project import new
 
     with project_new_runner.isolated_filesystem():
         result = project_new_runner.invoke(

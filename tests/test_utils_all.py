@@ -1,9 +1,9 @@
 import pytest
-from src.utils import shell
+import dragon.utils as shell
 
 
 def test_shell_run(mocker):
-    mocker.patch('src.utils.shell.run')
+    mocker.patch('dragon.utils.run')
     shell.run('ls -l')
     shell.run.assert_called_once_with('ls -l')
 
@@ -16,7 +16,7 @@ def test_shell_to_args():
 
 @pytest.mark.skip('Should have at least one assertion statement,but not')
 def test_terminal_printx():
-    from src.utils.terminal import Colors, printx
+    from dragon.utils import Colors, printx
     some_log = [('This is Red ', Colors.Magenta),
                 ('This is Blue', Colors.Blue)]
     printx(some_log)
