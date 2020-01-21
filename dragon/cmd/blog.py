@@ -17,7 +17,7 @@ class Blog(object):
             log(f"Current Running Command: '{command}' ... ",
                 font_color='green',
                 bold=True)
-            completed_process = run(command)
+            run(command)
 
     finish_commands = ('git add -A', 'git commit -m "update blog"', 'git push')
 
@@ -27,7 +27,7 @@ class Blog(object):
             log(f"Current Running Command: '{command}' ... ",
                 font_color='green',
                 bold=True)
-            completed_process = run(command)
+            run(command)
 
 
 @click.group('blog', short_help='Control the Hexo-based blog system')

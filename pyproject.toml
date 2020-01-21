@@ -10,7 +10,6 @@ python = "^3.8"
 click = "^7.0"
 munch = "^2.5.0"
 toml = "^0.10.0"
-yapf = "^0.29.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.2"
