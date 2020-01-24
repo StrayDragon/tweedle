@@ -1,0 +1,10 @@
+name="git"
+
+[config.linux]
+comment="$git config --global -e"
+
+[[config.linux.paths]]
+order = 1
+path = "~/.gitconfig"
+need_auth = false
+

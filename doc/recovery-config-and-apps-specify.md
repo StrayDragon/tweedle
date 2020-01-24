@@ -2,18 +2,20 @@
 
 # Example:
 > My configs that need to track and recovery:
-- i3wm
-- i3status
-- compton
+- [x] i3wm
+- [x] i3status
+- [x] compton
 - autostart-shell-script
-- (neo)vim
-- ranger
-- pyenv
-- zshrc and OMZ-plugins
-- xmodmap (Esc&Tab keymaps change)
-- pip mirror config
-- npm mirror config
-- git mirror config
+- [x] (neo)vim
+- [x] ranger
+- [ ] pyenv
+- [x] zshrc 
+  - [ ] OMZ-plugins
+- [ ] xmodmap (Esc&Tab keymaps change)
+- [ ] pip mirror config
+- [ ] npm mirror config
+- [x] git global config
+- [x] proxychains
 
 
 > My apps that easily recovery by pkg manager

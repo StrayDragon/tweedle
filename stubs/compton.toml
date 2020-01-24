@@ -1,0 +1,19 @@
+name="compton"
+
+[config.linux]
+comment="https://github.com/chjj/compton/blob/316eac0613bf342ff91cc645a6c3c80e6b9083fb/man/compton.1.asciidoc#L377"
+
+[[config.linux.paths]]
+order = 1
+path = "~/.config/compton.conf"
+need_auth = false
+
+[[config.linux.paths]]
+order = 2
+path = "~/.compton.conf"
+need_auth = false
+
+[[config.linux.paths]]
+order = 3
+path = "/etc/xdg/compton.conf"
+need_auth = true

@@ -1,0 +1,25 @@
+name="i3wm"
+
+[config.linux]
+comment="$man i3"
+
+[[config.linux.paths]]
+order = 1
+path = "~/.config/i3/config"
+need_auth = false
+
+[[config.linux.paths]]
+order = 2
+path = "~/.i3/config"
+need_auth = false
+
+[[config.linux.paths]]
+order = 3
+path = "/etc/xdg/i3/config"
+need_auth = true
+
+
+[[config.linux.paths]]
+order = 4
+path = "/etc/i3/config"
+need_auth = true

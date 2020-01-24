@@ -21,6 +21,7 @@ ipython = "^7.11.1"
 pyyaml = "^5.3"
 flake8 = "^3.7.9"
 yapf = "^0.29.0"
+mypy = "^0.761"
 
 [tool.poetry.scripts]
 dragon = 'dragon.entry:main'

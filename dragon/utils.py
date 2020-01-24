@@ -3,9 +3,18 @@ import shlex
 import subprocess
 from functools import partial, wraps
 from pathlib import Path
-from typing import List
+from typing import List, Callable
 
 import click
+
+
+def find_osenv_by_key(name: str,
+                      default: str = '') -> Callable[[str, str], str]:
+    """used to replace <lambda> of click.option() `default=<lambda>`"""
+    def _get_os_env(k, default_v):
+        return os.environ.get(k, default_v)
+
+    return partial(_get_os_env, k=name, default_v=default)
 
 
 def get_project_root() -> Path:

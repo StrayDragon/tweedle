@@ -1,0 +1,9 @@
+name="zsh"
+
+[config.linux]
+comment="$man zsh"
+
+[[config.linux.paths]]
+order = 1
+path = "~/.zshrc"
+need_auth = false

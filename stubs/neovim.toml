@@ -1,0 +1,26 @@
+name="neovim"
+
+[config.linux]
+comment="$man nvim"
+
+[[config.linux.paths]]
+order = 1
+path = "~/.config/nvim/init.vim"
+need_auth = false
+
+[[config.linux.paths]]
+order = 2
+path = "~/.config/nvim"
+need_auth = false
+
+[[config.linux.paths]]
+order = 3
+path = "$VIM/sysinit.vim"
+need_auth = true
+
+
+[[config.linux.paths]]
+order = 4
+path = "/usr/local/share/nvim"
+need_auth = true
+
