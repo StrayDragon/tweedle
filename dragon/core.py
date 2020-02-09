@@ -4,7 +4,7 @@ from importlib import import_module
 
 import click
 
-from . import PROJECT_SRC
+from . import PROJECT_SRC, PROJECT_VERSION
 
 SUBCMDS_FOLDER = PROJECT_SRC / 'cmd'
 
@@ -22,7 +22,7 @@ class DragonSubCommandsCLI(click.MultiCommand):
 
 
 @click.command(name='Dragon', cls=DragonSubCommandsCLI)
-@click.version_option()
+@click.version_option(version=PROJECT_VERSION)
 @click.help_option()
 def cli():
     """Welcome to use Dragon, enjoy it and be efficient :P"""
