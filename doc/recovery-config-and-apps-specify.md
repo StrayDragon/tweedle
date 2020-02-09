@@ -16,6 +16,7 @@
 - [ ] npm mirror config
 - [x] git global config
 - [x] proxychains
+- [ ] alacritty
 
 
 > My apps that easily recovery by pkg manager
@@ -26,6 +27,7 @@
 - exa
 - tokio
 - fzf
+- pipx list 
 - pacman dumps apps and others
 
 
