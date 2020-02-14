@@ -39,6 +39,14 @@ python-versions = "*"
 version = "0.1.0"
 
 [[package]]
+category = "dev"
+description = "Version-bump your software with a single command!"
+name = "bump2version"
+optional = false
+python-versions = ">=3.5"
+version = "1.0.0"
+
+[[package]]
 category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
@@ -469,7 +477,7 @@ python-versions = "*"
 version = "0.29.0"
 
 [metadata]
-content-hash = "8aad24118ede0d24548ddf024cea42525cd9a8c9c73ca3ed3cc3aa591ea0a8ec"
+content-hash = "335e6ab891da914c412ad7f98605b3cd97041e63ee5fb61a8f3b84a8dc012d79"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -488,6 +496,10 @@ attrs = [
 backcall = [
     {file = "backcall-0.1.0.tar.gz", hash = "sha256:38ecd85be2c1e78f77fd91700c76e14667dc21e2713b63876c0eb901196e01e4"},
     {file = "backcall-0.1.0.zip", hash = "sha256:bbbf4b1e5cd2bdb08f915895b51081c041bac22394fdfcfdfbe9f14b77c08bf2"},
+]
+bump2version = [
+    {file = "bump2version-1.0.0-py2.py3-none-any.whl", hash = "sha256:477f0e18a0d58e50bb3dbc9af7fcda464fd0ebfc7a6151d8888602d7153171a0"},
+    {file = "bump2version-1.0.0.tar.gz", hash = "sha256:cd4f3a231305e405ed8944d8ff35bd742d9bc740ad62f483bd0ca21ce7131984"},
 ]
 click = [
     {file = "Click-7.0-py2.py3-none-any.whl", hash = "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13"},
