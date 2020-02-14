@@ -137,7 +137,7 @@ def recovery_tutor(ctx):
     ####
     try:
         shutil.rmtree(target_dir)
-    except:
+    except Exception:
         pass
     ####
     target_dir.mkdir(parents=True, exist_ok=True)
