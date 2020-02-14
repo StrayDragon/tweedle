@@ -1,4 +1,4 @@
-> When you reinstall your Linux, these bundle of commands will recovery config and some apps conveniently 
+> When you reinstall your Linux, these bundle of commands will recovery config and some apps conveniently
 
 # Example:
 > My configs that need to track and recovery:
@@ -9,7 +9,7 @@
 - [x] (neo)vim
 - [x] ranger
 - [ ] pyenv
-- [x] zshrc 
+- [x] zshrc
   - [ ] OMZ-plugins
 - [ ] xmodmap (Esc&Tab keymaps change)
 - [ ] pip mirror config
@@ -27,7 +27,7 @@
 - exa
 - tokio
 - fzf
-- pipx list 
+- pipx list
 - pacman dumps apps and others
 
 

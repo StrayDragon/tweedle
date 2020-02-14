@@ -21,12 +21,12 @@ maybe use it looks like:
 
 ```bash
 $ # `dg` is alias of `dragon`
-$ ls -a 
+$ ls -a
 . ..
 $ dg spawn -i # interact mode
 [dragon] Which project type [default]: python
 [dragon] List configs of `python`
-[dragon] 1. poetry.toml  2.pyrightconfig.json 
+[dragon] 1. poetry.toml  2.pyrightconfig.json
 [dragon] Select [All]:<CR>
 [dragon] Done
 $ ls -a

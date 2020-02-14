@@ -1,12 +1,12 @@
 # <p align="center"> Dragon </p>
 [![Build Status](https://travis-ci.org/StrayDragon/dragon.svg?branch=master)](https://travis-ci.org/StrayDragon/dragon)
-<!--TODO:Add more icons--> 
+<!--TODO:Add more icons-->
 
 - Configs manager and controller
 <!-- - Commands manager and controller -->
 ---
 
-# **WARNING**: 
+# **WARNING**:
 :warning: Now, **DON'T USE** this tool in important workspace directories, because:
 - This project is still in the **development**, and some usages may change in the future.
 - It has some **destructive** and **unrecoverable** operations.
