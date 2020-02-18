@@ -1,7 +1,30 @@
-import click
+import os
+import stat
+from functools import update_wrapper, wraps
 from importlib import import_module
 
-from functools import update_wrapper
+import click
+from click._compat import filename_to_ui
+
+
+class ClickDefaultErrorOutput(object):
+    MISS_OPT = 'Missing option'
+    NO_OPT = 'no such option:'
+    RQR_OPT = 'option requires an argument'
+    CHOOSE_OPT = 'invalid choice'
+
+
+class Colors:
+    Black = 'black'
+    Gray = 'black'
+    Green = 'green'
+    Yellow = 'yellow'
+    Blue = 'blue'
+    Magenta = 'magenta'
+    Cyan = 'cyan'
+    White = 'white'
+    LightGray = 'white'
+    RESET = 'reset'
 
 
 def pass_props(f):
@@ -100,3 +123,49 @@ class LazyGroup(click.Group):
 
     def get_params(self, ctx):
         return self._impl.get_params(ctx)
+
+
+class Path(click.Path):
+    def convert(self, value, param, ctx):
+        rv = value
+
+        is_dash = self.file_okay and self.allow_dash and rv in (b'-', '-')
+
+        if not is_dash:
+            if self.resolve_path:
+                rv = os.path.realpath(rv)
+
+            try:
+                st = os.stat(rv)
+            except OSError:
+                if not self.exists:
+                    return self.coerce_path_result(rv)
+                self.fail(
+                    click.style('%s "%s" does not exist.' % (self.path_type, filename_to_ui(value)),
+                                fg='red'),
+                    param,
+                    ctx,
+                )
+
+            if not self.file_okay and stat.S_ISREG(st.st_mode):
+                self.fail('%s "%s" is a file.' % (self.path_type, filename_to_ui(value)), param,
+                          ctx)
+            if not self.dir_okay and stat.S_ISDIR(st.st_mode):
+                self.fail('%s "%s" is a directory.' % (self.path_type, filename_to_ui(value)),
+                          param, ctx)
+            if self.writable and not os.access(value, os.W_OK):
+                self.fail('%s "%s" is not writable.' % (self.path_type, filename_to_ui(value)),
+                          param, ctx)
+            if self.readable and not os.access(value, os.R_OK):
+                self.fail('%s "%s" is not readable.' % (self.path_type, filename_to_ui(value)),
+                          param, ctx)
+
+        return self.coerce_path_result(rv)
+
+
+def noncontext_callback(f):
+    @wraps(f)
+    def fake_callback(ctx, param, value):
+        return f(value)
+
+    return fake_callback
