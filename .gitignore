@@ -114,4 +114,6 @@ Pipfile.lock
 .idea/
 
 # Vim
-.vim/
+# .vim/
+
+user_define/
