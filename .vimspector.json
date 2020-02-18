@@ -1,0 +1,21 @@
+{
+  "$schema": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json#",
+  "configurations": {
+    "single file debug": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "debugpy: Launch",
+        "type": "python",
+        "request": "launch",
+        "python": "${workspaceFolder}/.venv/bin/python3",
+        "cwd": "${workspaceFolder}",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": [
+          "${file}"
+        ]
+      }
+    }
+  }
+}
