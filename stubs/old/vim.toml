@@ -1,0 +1,29 @@
+name="vim"
+
+[config]
+comment="$man vim"
+
+[[config.lookup_paths]]
+order = 1
+path = "/etc/vimrc"
+need_auth = true
+default_hit = false
+
+[[config.lookup_paths]]
+order = 2
+path = "~/.vimrc"
+need_auth = false
+default_hit = true
+
+[[config.lookup_paths]]
+order = 3
+path = "/etc/gvimrc"
+need_auth = true
+default_hit = false
+
+
+[[config.lookup_paths]]
+order = 4
+path = "~/.gvimrc"
+need_auth = false
+default_hit = false

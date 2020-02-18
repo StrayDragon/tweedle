@@ -1,0 +1,23 @@
+name="proxychains"
+
+[config]
+comment="https://github.com/rofl0r/proxychains-ng"
+
+[[config.lookup_paths]]
+order = 1
+path = "./proxychains.conf"
+need_auth = false
+default_hit = false
+
+
+[[config.lookup_paths]]
+order = 2
+path = "~/.proxychains/proxychains.conf"
+need_auth = false
+default_hit = true
+
+[[config.lookup_paths]]
+order = 3
+path = "/etc/proxychains.conf"
+need_auth = true
+default_hit = false

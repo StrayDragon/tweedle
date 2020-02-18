@@ -1,26 +1,13 @@
-name="vim"
+name = "vim"
 
-[config.linux]
-comment="$man vim"
+[config]
+comment = "$man vim"
 
-[[config.linux.paths]]
-order = 1
-path = "/etc/vimrc"
-need_auth = true
+habitual_path = "~/.vimrc"
 
-[[config.linux.paths]]
-order = 2
-path = "~/.vimrc"
-need_auth = false
-
-[[config.linux.paths]]
-order = 3
-path = "/etc/gvimrc"
-need_auth = true
-
-
-[[config.linux.paths]]
-order = 4
-path = "~/.gvimrc"
-need_auth = false
-
+lookup_paths = [
+  "/etc/vimrc",
+  "~/.vimrc",
+  "/etc/gvimrc",
+  "~/.gvimrc",
+]

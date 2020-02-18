@@ -1,19 +1,12 @@
-name="proxychains"
+name = "proxychains"
 
-[config.linux]
-comment="https://github.com/rofl0r/proxychains-ng"
+[config]
+comment = "https://github.com/rofl0r/proxychains-ng"
 
-[[config.linux.paths]]
-order = 1
-path = "./proxychains.conf"
-need_auth = false
+habitual_path = "~/.proxychains/proxychains.conf"
 
-[[config.linux.paths]]
-order = 2
-path = "~/.proxychains/proxychains.conf"
-need_auth = false
-
-[[config.linux.paths]]
-order = 3
-path = "/etc/proxychains.conf"
-need_auth = true
+lookup_paths = [
+  "./proxychains.conf",
+  "~/.proxychains/proxychains.conf",
+  "/etc/proxychains.conf",
+]

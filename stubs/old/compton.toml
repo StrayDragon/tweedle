@@ -1,0 +1,34 @@
+name="compton"
+
+[config]
+comment="https://github.com/chjj/compton/blob/316eac0613bf342ff91cc645a6c3c80e6b9083fb/man/compton.1.asciidoc#L377"
+
+[[config.lookup_paths]]
+order = 1
+path = "$XDG_CONFIG_HOME/compton.conf"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 2
+path = "~/.config/compton.conf"
+need_auth = false
+default_hit = true
+
+[[config.lookup_paths]]
+order = 3
+path = "~/.compton.conf"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 4
+path = "$XDG_CONFIG_DIRS/compton.conf"
+need_auth = true
+default_hit = false
+
+[[config.lookup_paths]]
+order = 5
+path = "/etc/xdg/compton.conf"
+need_auth = true
+default_hit = false

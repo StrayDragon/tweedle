@@ -1,15 +1,12 @@
-name="ranger"
+name = "ranger"
 
-[config.linux]
-comment="$man ranger"
+[config]
+comment = "$man ranger"
 
-[[config.linux.paths]]
-order = 1
-path = "~/.config/ranger"
-need_auth = false
+habitual_path = "~/.config/ranger/rc.conf"
 
-[[config.linux.paths]]
-order = 2
-path = "$XDG_CONFIG_HOME/ranger"
-need_auth = false
-if_set = "$XDG_CONFIG_HOME"
+lookup_paths = [
+  "$XDG_CONFIG_HOME/ranger/rc.conf",
+  "~/.config/ranger/rc.conf",
+  "/etc/ranger/rc.conf",
+]

@@ -1,0 +1,40 @@
+name="i3status"
+
+[config]
+comment="$man i3status"
+
+[[config.lookup_paths]]
+order = 1
+path = "$XDG_CONFIG_HOME/i3status/config"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 2
+path = "~/.config/i3status/config"
+need_auth = false
+default_hit = true
+
+[[config.lookup_paths]]
+order = 3
+path = "$XDG_CONFIG_DIRS/i3status/config"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 4
+path = "/etc/xdg/i3status/config"
+need_auth = true
+default_hit = false
+
+[[config.lookup_paths]]
+order = 5
+path = "~/.i3status.conf"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 6
+path = "/etc/i3status.conf"
+need_auth = true
+default_hit = false

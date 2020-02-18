@@ -1,10 +1,10 @@
-name="git"
+name = "git"
 
-[config.linux]
-comment="$git config --global -e"
+[config]
+comment = "$git config --global -e"
 
-[[config.linux.paths]]
-order = 1
-path = "~/.gitconfig"
-need_auth = false
+habitual_path = "~/.gitconfig"
 
+lookup_paths = [
+  "~/.gitconfig",
+]

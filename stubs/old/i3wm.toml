@@ -1,0 +1,29 @@
+name="i3wm"
+
+[config]
+comment="$man i3"
+
+[[config.lookup_paths]]
+order = 1
+path = "~/.config/i3/config"
+need_auth = false
+default_hit = true
+
+[[config.lookup_paths]]
+order = 2
+path = "~/.i3/config"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 3
+path = "/etc/xdg/i3/config"
+need_auth = true
+default_hit = false
+
+
+[[config.lookup_paths]]
+order = 4
+path = "/etc/i3/config"
+need_auth = true
+default_hit = false

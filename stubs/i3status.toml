@@ -1,25 +1,15 @@
-name="i3status"
+name = "i3status"
 
-[config.linux]
-comment="$man i3status"
+[config]
+comment = "$man i3status"
 
-[[config.linux.paths]]
-order = 1
-path = "~/.config/i3status/config"
-need_auth = false
+habitual_path = "~/.config/i3status/config"
 
-[[config.linux.paths]]
-order = 2
-path = "/etc/xdg/i3status/config"
-need_auth = true
-
-[[config.linux.paths]]
-order = 3
-path = "~/.i3status.conf"
-need_auth = false
-
-[[config.linux.paths]]
-order = 4
-path = "/etc/i3status.conf"
-need_auth = true
-
+lookup_paths = [
+  "$XDG_CONFIG_HOME/i3status/config",
+  "~/.config/i3status/config",
+  "$XDG_CONFIG_DIRS/i3status/config",
+  "/etc/xdg/i3status/config",
+  "~/.i3status.conf",
+  "/etc/i3status.conf",
+]

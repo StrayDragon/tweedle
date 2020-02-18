@@ -1,0 +1,22 @@
+name="ranger"
+
+[config]
+comment="$man ranger"
+
+[[config.lookup_paths]]
+order = 1
+path = "$XDG_CONFIG_HOME/ranger/rc.conf"
+need_auth = false
+default_hit = false
+
+[[config.lookup_paths]]
+order = 2
+path = "~/.config/ranger/rc.conf"
+need_auth = false
+default_hit = true
+
+[[config.lookup_paths]]
+order = 3
+path = "/etc/ranger/rc.conf"
+need_auth = true
+default_hit = false

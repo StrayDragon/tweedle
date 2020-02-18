@@ -1,0 +1,10 @@
+name="git"
+
+[config]
+comment="$git config --global -e"
+
+[[config.lookup_paths]]
+order = 1
+path = "~/.gitconfig"
+need_auth = false
+default_hit = true
