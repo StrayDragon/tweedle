@@ -3,8 +3,8 @@ import subprocess
 import pytest
 from click.testing import CliRunner
 
-from dragon.utils import to_args
 from dragon.cmd.blog import Blog
+from dragon.util import sh
 
 
 def check_command_invokable(*commands) -> bool:
@@ -30,7 +30,7 @@ def blog_runner():
 def test_publish(blog_runner):
     from dragon.cmd.blog import publish
     with blog_runner.isolated_filesystem():
-        state = blog_runner.invoke(publish, to_args('-P test'))
+        state = blog_runner.invoke(publish, sh.to_args('-P test'))
     for cmd in Blog.publish_commands:
         assert cmd in state.output
 
@@ -43,6 +43,6 @@ def test_publish(blog_runner):
 def test_finish(blog_runner):
     from dragon.cmd.blog import finish
     with blog_runner.isolated_filesystem():
-        state = blog_runner.invoke(finish, to_args('-P test'))
+        state = blog_runner.invoke(finish, sh.to_args('-P test'))
     for cmd in Blog.finish_commands:
         assert cmd in state.output

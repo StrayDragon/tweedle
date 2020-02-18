@@ -1,6 +1,6 @@
 from dragon import PROJECT_ROOT
 
-stubs_path = PROJECT_ROOT / 'stubs'
+stubs_path = PROJECT_ROOT / 'stubs' / 'old'
 
 import toml
 
@@ -27,4 +27,3 @@ def test_lookup_paths_validation():
             assert has_right_key(p, 'default_hit')
             if p['default_hit']: default_hit_unique_cnt += 1
         assert default_hit_unique_cnt == 1, f"{path.name} error"
-

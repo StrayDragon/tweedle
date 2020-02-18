@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
 
-packages = ['dragon', 'dragon.cmd']
+packages = ['dragon', 'dragon.cmd', 'dragon.util']
 
 package_data = {'': ['*']}
 

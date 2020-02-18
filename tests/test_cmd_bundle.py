@@ -1,10 +1,9 @@
 import pytest
 from click.testing import CliRunner
-
-import dragon.utils as shell
+from dragon.util import sh
 
 toml_txt = """
-# Blog.publish() 
+# Blog.publish()
 bundle_name = "Blog System: Quick publish"
 
 execute_cmd = [
@@ -28,10 +27,10 @@ def test_study_basic():
 def test_common_cmd(mocker):
     runner = CliRunner()
     with runner.isolated_filesystem():
-        mocked = mocker.patch('dragon.utils.run')
-        shell.run('ls -l')
+        mocked = mocker.patch('dragon.util.sh.run')
+        sh.run('ls -l')
         assert mocked.called
-        shell.run.assert_called_once_with('ls -l')
+        sh.run.assert_called_once_with('ls -l')
 
 
 @pytest.mark.skip()

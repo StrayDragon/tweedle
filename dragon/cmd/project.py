@@ -1,6 +1,5 @@
 import click
-
-from ..utils import Colors, current_running_path, log
+from dragon.util import cliview, sh
 
 
 @click.group('project',
@@ -23,14 +22,14 @@ def new(project_name, lang, build_tool, third_party):
     os.mkdir(os.path.join(cur_path, project_name))
 
     # Display these after success
-    log('Generated the project in ',
-        font_color=Colors.Green,
-        bold=True,
-        nl=False)
-    log(current_running_path())
-    log(f'  Project Name : {project_name}')
-    log(f'  Language     : {lang}')
+    cliview.display('Generated the project in ',
+                    font_color=cliview.Colors.Green,
+                    bold=True,
+                    nl=False)
+    cliview.display(sh.current_running_path())
+    cliview.display(f'  Project Name : {project_name}')
+    cliview.display(f'  Language     : {lang}')
     if build_tool:
-        log(f'  Build Tool   : {build_tool}')
+        cliview.display(f'  Build Tool   : {build_tool}')
     if third_party:
-        log(f'  External-Libs: {third_party}')
+        cliview.display(f'  External-Libs: {third_party}')
