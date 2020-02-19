@@ -1,7 +1,8 @@
 import shutil
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Literal, Callable
+from typing import Callable, Literal
+
 # from typing import Literal, List
 # from functools import singledispatch
 

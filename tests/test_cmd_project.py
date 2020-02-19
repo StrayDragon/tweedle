@@ -35,10 +35,8 @@ def test_passing_name_and_suited_opt_lang(project_new_runner):
     from dragon.cmd.project import new
 
     with project_new_runner.isolated_filesystem():
-        result = project_new_runner.invoke(
-            new, sh.to_args('test_projected --lang cpp'))
-        project_root_dir_exist = os.path.exists(
-            os.path.join(os.getcwd(), 'test_projected'))
+        result = project_new_runner.invoke(new, sh.to_args('test_projected --lang cpp'))
+        project_root_dir_exist = os.path.exists(os.path.join(os.getcwd(), 'test_projected'))
 
     assert project_root_dir_exist
     assert 'Generated the project' in result.stdout

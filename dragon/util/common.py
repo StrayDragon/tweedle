@@ -1,11 +1,10 @@
 import os
+import subprocess
 from functools import partial, wraps
 from typing import Callable
-import subprocess
 
 
-def find_osenv_by_key(name: str,
-                      default: str = '') -> Callable[[str, str], str]:
+def find_osenv_by_key(name: str, default: str = '') -> Callable[[str, str], str]:
     """used to replace <lambda> of click.option() `default=<lambda>`"""
     def _get_os_env(k, default_v):
         return os.environ.get(k, default_v)

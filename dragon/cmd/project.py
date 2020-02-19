@@ -1,9 +1,9 @@
 import click
+
 from dragon.util import cliview, sh
 
 
-@click.group('project',
-             short_help='Generate a project structure out of the box')
+@click.group('project', short_help='Generate a project structure out of the box')
 def cli():
     """Generate a project structure and save a little time"""
     pass

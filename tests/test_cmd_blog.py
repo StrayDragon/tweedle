@@ -23,10 +23,8 @@ def blog_runner():
     # Tear Down
 
 
-@pytest.mark.skipif(
-    condition=check_command_invokable('hexo'),
-    reason=f"Command: 'hexo' may not satisfied in local environment. skip test!"
-)
+@pytest.mark.skipif(condition=check_command_invokable('hexo'),
+                    reason=f"Command: 'hexo' may not satisfied in local environment. skip test!")
 def test_publish(blog_runner):
     from dragon.cmd.blog import publish
     with blog_runner.isolated_filesystem():
@@ -37,9 +35,7 @@ def test_publish(blog_runner):
 
 @pytest.mark.skipif(
     condition=check_command_invokable('hexo', 'git'),
-    reason=
-    f"Command: 'hexo' or 'git' may not satisfied in local environment. skip test!"
-)
+    reason=f"Command: 'hexo' or 'git' may not satisfied in local environment. skip test!")
 def test_finish(blog_runner):
     from dragon.cmd.blog import finish
     with blog_runner.isolated_filesystem():

@@ -1,6 +1,6 @@
 import click
 
-from dragon.util import sh, cliview
+from dragon.util import cliview, sh
 
 
 class Blog(object):
@@ -8,8 +8,7 @@ class Blog(object):
     NOT_PASS = '[Fail]'
     BASED_CMD = 'hexo'
 
-    publish_commands = ('hexo clean', 'hexo g -d', 'hexo clean',
-                        'rm .deploy_git -rf')
+    publish_commands = ('hexo clean', 'hexo g -d', 'hexo clean', 'rm .deploy_git -rf')
 
     @staticmethod
     def publish():

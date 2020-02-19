@@ -1,10 +1,9 @@
+import os
 import shlex
 import subprocess
-import os
-from typing import List
-
 from contextlib import contextmanager
 from pathlib import Path
+from typing import List
 
 
 @contextmanager

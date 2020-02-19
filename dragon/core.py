@@ -4,7 +4,7 @@ from importlib import import_module
 
 import click
 
-from . import PROJECT_SRC, __version__
+from dragon import PROJECT_SRC, __version__
 
 SUBCMDS_FOLDER = PROJECT_SRC / 'cmd'
 

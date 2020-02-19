@@ -1,6 +1,6 @@
 import pytest
-from click.testing import CliRunner
 from dragon.util import sh
+from click.testing import CliRunner
 
 toml_txt = """
 # Blog.publish()
@@ -51,9 +51,7 @@ def test_shell_converter():
             res += _
         return res
 
-    shells = [
-        f"# {cmd.name}\n{cmd.exec.strip()}\n" for cmd in bundle_info.Scripts
-    ]
+    shells = [f"# {cmd.name}\n{cmd.exec.strip()}\n" for cmd in bundle_info.Scripts]
 
     expected = """# Startup Tomcat8.5 Web Server and map to port:8888\ndocker run -it -p 8888:8080 tomcat:8.5\n# Startup MySQL Server and map to port:6033\ndocker run --name mysql5.7 -p 6033:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7\n"""
     result = export(shells, strategy=pack_to_shell)

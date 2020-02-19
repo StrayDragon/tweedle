@@ -1,11 +1,13 @@
+from typing import Dict
+
+import toml
+
 from dragon import PROJECT_ROOT
 
 stubs_path = PROJECT_ROOT / 'stubs' / 'old'
 
-import toml
 
-
-def has_right_key(kv: dict, k: str) -> bool:
+def has_right_key(kv: Dict[str, str], k: str) -> bool:
     return kv.get(k, "WRONG") != "WRONG"
 
 
