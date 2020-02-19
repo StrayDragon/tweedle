@@ -1,4 +1,10 @@
 [flake8]
-ignore = E501
+# ignore = E501
 max-line-length = 100
-exclude = tests/*
+select = E,W,F,N,I
+exclude = tests/*, out/*, typeings/*
+max-complexity = 10
+
+#+[flake-import-order]
+application-import-names = dragon,tests,scripts
+import-order-style = pycharm
