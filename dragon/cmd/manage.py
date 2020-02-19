@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import List
 
 import click
@@ -10,12 +11,10 @@ import toml
 from munch import munchify
 
 from dragon import PROJECT_NAME
-from dragon.util import fs, sh, archive, clickx
-import munch
-from tempfile import TemporaryDirectory
+from dragon.util import archive, clickx, fs, sh
 
 dev_ignore_this_field = field(init=False)
-BACKUP_RECOVERY_METAINFO_FILE_NAME = f'__{PROJECT_NAME}_backup_recovery_stub.toml'
+BACKUP_RECOVERY_METAINFO_FILE_NAME = f'__{PROJECT_NAME}_backup_recovery_stub__.toml'
 
 
 def recovery_tutor(ctx):
@@ -236,14 +235,13 @@ def check_and_convert_path(value):
     callback=check_and_convert_path,
 )
 def backup(backup_stub_path: Path):
+    """"""
     # 0. Check backup_stub_path correctness: by option callback
-
-    # 1. Find and deserialize user defined backup configs from Path.cwd() (default) or user defined file
-
+    # 1. Find and deserialize user defined backup configs
+    #    from Path.cwd() (default) or user defined file
     # check no options situation
     # if not backup_stub_path:
     #     backup_stub_path = Path.cwd() / f'{PROJECT_NAME}_backup_stub.toml'
-
     # if not backup_stub_path.exists():
     #     click.secho(
     #         f"not found backup description, check out 'dragon manage backup --help'",
@@ -253,14 +251,19 @@ def backup(backup_stub_path: Path):
     #     raise click.Abort()
 
     # 1. Find and deserialize user defined backup configs file
-    stub = munch.munchify(toml.load(backup_stub_path))
+    stub = munchify(toml.load(backup_stub_path))
 
     # 2. Display collected infos
     backup_paths = stub.backup.paths
     will_be_archived_paths = [Path(p) for p in backup_paths]
 
+    for path in will_be_archived_paths:
+        if not path.exists():
+            click.secho(f'error: {str(path)} is not exist!')
+            raise click.Abort()
+
     click.secho(f"these files or folders will be archived...")
-    for p in backup_paths[:-1]:
+    for p in backup_paths:
         click.secho(f'\t{p:<60}')
 
     # 3. Popup confirm dialog and prepare to archive
@@ -274,7 +277,7 @@ def backup(backup_stub_path: Path):
         kv = {
             'backup': {
                 'archive_file': {
-                    'autorecovery': False
+                    'auto_recovery': False
                 },
                 'old_paths': [str(path) for path in will_be_archived_paths]
             },
@@ -283,7 +286,7 @@ def backup(backup_stub_path: Path):
         # (option) add auto_recovery related metainfo to stub
         if stub.backup.auto_recovery:
             # prepare 'autorecovery' metainfo
-            kv['backup']['archive_file'] = {'autorecovery': True}
+            kv['backup']['archive_file'] = {'auto_recovery': True}
             kv['recovery'] = {
                 'archive_file': {
                     'irrelevant_recovery_paths':
@@ -302,7 +305,8 @@ def backup(backup_stub_path: Path):
         # NOTE: user maybe set 'store_path' to:
         # a. ~/xxx/xxx b. ~/xxx/xxx.zip c. /xxx/xxx d. /xxx/xxx.zip
         # e. ../xxx f. ../xxx.zip g. xxx.zip h. xxx ........
-        # but now, only support paths with .zip suffix like b. or d. or empty(default: archived) in Path.cwd()!
+        # but now, only support paths with like .zip suffix(b. or d.)
+        # or empty(default: archived) in Path.cwd()!
         try:
             store_path = Path(stub.backup.store_path).expanduser()
         except AttributeError:
@@ -328,4 +332,43 @@ def backup(backup_stub_path: Path):
         click.secho(f'archived {str(store_path)}')
         click.secho(f'Done. ´ ▽ ` )ﾉ`')
         temp_dir.cleanup()
-    pass
+
+
+@cli.command()
+@click.help_option()
+@click.option(
+    '-i',
+    '--archive-file',
+    'archived_file_path',
+    required=False,
+    callback=check_and_convert_path,
+)
+# @click.option('-o', '--configs', 'app_configs')
+def recovery(archived_file_path):
+    # 0. Check archived path correctness: by option callback
+
+    # 1. Check to see whether it contains
+    #    the description file (BACKUP_RECOVERY_METAINFO_FILE_NAME)
+
+    # 2. Unpack(extract) all to temp-directory
+    home_path = Path.home()
+    with TemporaryDirectory() as temp_dir:
+        temp_dir = Path(temp_dir)
+        archive.extract_all(archived_file_path, temp_dir)
+
+        # retrieve description file (BACKUP_RECOVERY_METAINFO_FILE_NAME.toml) path
+        df = temp_dir / BACKUP_RECOVERY_METAINFO_FILE_NAME
+        stub = munchify(toml.load(df))
+        if not stub.backup.archive_file.auto_recovery:
+            click.secho('detect auto_recovery=False, cleanup...')
+            click.Abort()
+
+        # print(list(temp_dir.glob('*')))
+
+        # 3. Assign these files or folders if necessary(has the `auto_recovery=true`)
+        good_paths = [Path(p) for p in stub.recovery.archive_file.irrelevant_recovery_paths]
+        with click.progressbar(good_paths, label='recovering') as bar:
+            for good in bar:
+                # print(f'move {temp_dir / good.name} -> {home_path / good.parent}')
+                shutil.move(str(temp_dir / good.name), str(home_path / good.parent))
+        click.secho(f'Done. ´ ▽ ` )ﾉ`')
