@@ -4,20 +4,20 @@ import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import List
+from typing import Dict, List
 
 import click
 import toml
 from munch import munchify
 
-from dragon import PROJECT_NAME
+from dragon import PROJECT_NAME, PROJECT_ROOT
 from dragon.util import archive, clickx, fs, sh
 
 dev_ignore_this_field = field(init=False)
 BACKUP_RECOVERY_METAINFO_FILE_NAME = f'__{PROJECT_NAME}_backup_recovery_stub__.toml'
 
 
-def recovery_tutor(ctx):
+def prepare_to_backup_existing_app_configs_tutor():
     # 运行时处理外部应用的相关信息的数据类
     @dataclass
     class ExternalAppInfo:
@@ -25,21 +25,16 @@ def recovery_tutor(ctx):
         selected_path: Path
         hit: bool = False
 
+        def __post_init__(self):
+            self.selected_path = self.selected_path.expanduser()
+
     click.secho("Start to recovery this operator system", fg="yellow")
     click.secho("Finding managable Apps...")
 
-    from .. import PROJECT_ROOT
-
-    # app_names: List[str] = [
-    #     str(p.name) for p in (PROJECT_ROOT / 'stubs').glob('*.toml')
-    # ]
-    # for name in app_names:
-    #     click.secho(f"\t{utils.strip_ext( name )}")
-
     # NOTE: 反序列化待查数据 读取所有预设的外部应用的stub
     raw_app_infos: List[dict] = []
-    app_paths: List[Path] = [p for p in (PROJECT_ROOT / 'stubs').glob('*.toml')]
-    for app_path in app_paths:
+    app_stub_paths: List[Path] = [p for p in (PROJECT_ROOT / 'stubs').glob('*.toml')]
+    for app_path in app_stub_paths:
         if app_path.exists():
             raw_app_infos.append(toml.load(app_path))
         else:
@@ -47,16 +42,10 @@ def recovery_tutor(ctx):
 
     # __import__('pprint').pp(raw_app_infos)
 
-    def _get_path(raw_info):
-        p = list(
-            map(lambda kv: kv['path'],
-                filter(lambda kv: kv['default_hit'], raw_info["config"]["lookup_paths"])))[0]
-        path = Path(p).expanduser()
-        return path
-
     # 序列化结果
     app_infos: List[ExternalAppInfo] = [
-        ExternalAppInfo(name=raw_info["name"], selected_path=_get_path(raw_info))
+        ExternalAppInfo(name=raw_info["name"],
+                        selected_path=Path(raw_info['config']['habitual_path']))
         for raw_info in raw_app_infos
     ]
     # __import__('pprint').pp(app_infos)
@@ -87,31 +76,30 @@ def recovery_tutor(ctx):
     # NOTE: 通过存根反查配置
     # FIXME: 现在会抓取到系统预设配置
     click.secho(f"\nTry to select proper configs from unhit list orderly...", fg="yellow")
-    app_name_lookup_paths_kv: dict = {
+    app_name_lookup_paths_kv: Dict[str, List[str]] = {
         raw_info['name']: raw_info['config']['lookup_paths']
         for raw_info in raw_app_infos
     }
     for app in unhit_apps:
         click.secho(f"solve {app.name:<54}", nl=False)
         has_hit = False
-        for app_path_config in app_name_lookup_paths_kv[app.name]:
-            p = munchify(app_path_config)
-            if not p.default_hit:
-                if p.path.startswith('~'):
-                    p.path = Path(p.path).expanduser()
-                elif '$' in p.path:
+        for app_condidate_path in app_name_lookup_paths_kv[app.name]:
+            if app_condidate_path:
+                if app_condidate_path.startswith('~'):
+                    app_condidate_path = Path(app_condidate_path).expanduser()
+                elif '$' in app_condidate_path:
                     from os.path import expandvars
-                    changed = expandvars(p.path)
-                    if changed != p.path:
-                        p.path = Path(changed)
+                    changed = expandvars(app_condidate_path)
+                    if changed != app_condidate_path:
+                        app_condidate_path = Path(changed)
                     else:
                         continue
-                p.path = Path(p.path)
-                if p.path.exists():
-                    click.secho(f"Hit in {str(p.path)}")
+                app_condidate_path = Path(app_condidate_path)
+                if app_condidate_path.exists():
+                    click.secho(f"Hit in {str(app_condidate_path)}")
                     has_hit = True
                     need_grab_configs.append(
-                        ExternalAppInfo(name=app.name, selected_path=p.path, hit=True))
+                        ExternalAppInfo(name=app.name, selected_path=app_condidate_path, hit=True))
                     break
         if not has_hit:
             click.secho("failed to hit config, ignore it as a not installed app")
@@ -157,7 +145,12 @@ def recovery_tutor(ctx):
             # subprocess.run(shlex.split(f"git init {target_dir}"))
             subprocess.run(shlex.split(f"git init"))
         subprocess.run(shlex.split(f"git add -A"))
-        subprocess.run(shlex.split(f"git commit -m 'first 23333'"))  # TODO:Commit msg
+        commit_msg = click.prompt(
+            'Please input commit message([...] is default)',
+            prompt_suffix=f': ',
+            default='init configs repo',
+        )
+        subprocess.run(shlex.split(f"git commit -m '{commit_msg}'"))
         # subprocess.run(shlex.split(f"git add {target_dir / '*'}"))
         # subprocess.run(shlex.split(f"git commit -m 'first 23333' -- {target_dir}"))
 
@@ -166,37 +159,31 @@ def recovery_tutor(ctx):
         if click.confirm(click.style('add git remote?', fg='yellow'),
                          prompt_suffix=' [No]/Yes:',
                          show_default=False):
-            click.secho(f"adding gitremote ...")
+            remote_url = click.prompt('Please input remote url', show_default=False)
+            subprocess.run(shlex.split(f"git remote add origin '{remote_url}'"))
 
         #       - sync 同步专用指令
         #           - push
-        if click.confirm(click.style('push to remote?', fg='yellow'),
+        if click.confirm(click.style('push to remote now?', fg='yellow'),
                          prompt_suffix=' [No]/Yes:',
                          show_default=False):
-            subprocess.run(shlex.split(f"git push"))
-
-    # TODO: 派发配置到宿主机
-    click.secho(f'Auto symbol link to current user configs path...')
-    # 建立软链接,方便统一管理
-    # >>> p = Path('mylink')
-    # >>> p.symlink_to('setup.py')
-    # >>> p.resolve()
-    # PosixPath('/home/antoine/pathlib/setup.py')
-    # >>> p.stat().st_size
-    # 956
-    # >>> p.lstat().st_size
-    # 8
-    # FIXME: 重构以上代码,拆分职责 = .=
+            subprocess.run(shlex.split(f"git push -u origin master"))
 
 
 @click.group(invoke_without_command=True)
 @click.pass_context
 def cli(ctx):
     if ctx.invoked_subcommand is None:
-        if click.confirm(click.style('Really sure?'), show_default=False, prompt_suffix='[No]Yes:'):
-            recovery_tutor(ctx)
-    else:
-        click.secho("Subcommands invoke successfully", fg="yellow")
+        click.secho(
+            "this tutor will help you to create a configurations file(stub.toml) to hold:",
+            fg='yellow',
+        )
+        managables = "app configs", "backup or recovery archive file"
+        for managable in managables:
+            click.secho(f'\t - {managable}', fg='green')
+        if click.confirm('continue?', abort=True):
+            # TODO: create user manage configurations file
+            pass
 
 
 # @cli.command()
@@ -231,11 +218,22 @@ def check_and_convert_path(value):
     '--backup-stub-file',
     'backup_stub_path',
     # type=clickx.Path(exists=True, file_okay=True, dir_okay=True),
-    required=True,
+    # required=True,
     callback=check_and_convert_path,
 )
 def backup(backup_stub_path: Path):
     """"""
+    if not backup_stub_path:
+        if click.confirm(
+                'Ensure to step into backup git managable configs tutor?',
+                default=True,
+                abort=True,
+                prompt_suffix=' [Yes]/No: ',
+                show_default=False,
+        ):
+            prepare_to_backup_existing_app_configs_tutor()
+            click.secho('Done ´ ▽ ` )ﾉ`')
+            return
     # 0. Check backup_stub_path correctness: by option callback
     # 1. Find and deserialize user defined backup configs
     #    from Path.cwd() (default) or user defined file
@@ -345,6 +343,67 @@ def backup(backup_stub_path: Path):
 )
 # @click.option('-o', '--configs', 'app_configs')
 def recovery(archived_file_path):
+    if not archived_file_path:
+        if click.confirm(
+                'Ensure to step into recovery git managable configs tutor?',
+                default=True,
+                abort=True,
+                prompt_suffix=' [Yes]/No: ',
+                show_default=False,
+        ):
+
+            # prepare_to_recovery_git_managed_app_configs_tutor()
+            # 0. check user preference? from defined stubinfo or default and get behavior stubinfo
+            # 1. check git managed repo location: local or remote repo? finally, unify them to 'p'
+            click.secho("Please input your configs repo location:")
+            click.secho("support: location path('~/xxx'), https & git protocal url")
+            url: str = click.prompt('url', type=str)
+            app_dir_path = Path(click.get_app_dir(PROJECT_NAME, roaming=False)).expanduser()
+            app_dir_path.mkdir(parents=True, exist_ok=True)
+            if url.startswith('https') or url.startswith('git'):
+                with sh.change_dir_temporarily_to(app_dir_path):
+                    subprocess.run(shlex.split(f"git clone '{url}' external/app_configs_repo"))
+                    Path('external').mkdir(parents=True, exist_ok=True)
+                    repo_path = app_dir_path / 'external' / 'app_configs_repo'
+                    # TODO: if git clone error, note to handle this exception
+            else:
+                if url.startswith('~'):
+                    repo_path = Path(url).expanduser()
+                else:
+                    repo_path = Path(url)
+            try:
+                if repo_path.is_dir():
+                    click.secho(f'find repo : {str( repo_path )}')
+            except Exception:
+                raise click.UsageError('please input correct url... Abort!')
+            # 2. from this 'p', dispatch corresponding configs to correct position
+            # TODO: 派发配置到宿主机
+            click.secho(f'will symbol link to current user configs path...')
+            click.pause()
+            # 建立软链接,方便统一管理
+            # >>> p = Path('mylink')
+            # >>> p.symlink_to('setup.py')
+            # >>> p.resolve()
+            # PosixPath('/home/antoine/pathlib/setup.py')
+            # >>> p.stat().st_size
+            # 956
+            # >>> p.lstat().st_size
+            # 8
+            with sh.change_dir_temporarily_to(repo_path):
+                # find habitual_path in stubs dict by folder name
+                app_stubs = (toml.load(p) for p in (PROJECT_ROOT / 'stubs').glob('*.toml'))
+                db = {app_stub['name']: Path(app_stub['habitual_path']) for app_stub in app_stubs}
+                for appname in db.keys():
+                    config_path: Path = Path.cwd() / appname / db[appname].name
+                    target_path: Path = db[appname].expanduser()
+                    click.secho(f"deal {appname}: link {config_path} to {target_path}", nl=False)
+                    target_path.parent.mkdir(parent=True, exist_ok=True)
+                    config_path.symlink_to(target_path)
+                    click.secho(f"\tok")
+
+            click.secho('Done ´ ▽ ` )ﾉ`')
+            return
+
     # 0. Check archived path correctness: by option callback
 
     # 1. Check to see whether it contains
