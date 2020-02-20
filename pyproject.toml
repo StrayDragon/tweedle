@@ -1,9 +1,28 @@
 [tool.poetry]
 name = "dragon"
 version = "0.0.0"
-description = ""
+description = "A CLI tool for manage appconfigs and archive data"
 authors = ["straydragon <straydragonl@foxmail.com>"]
+readme = 'README.md'
 license = "MIT"
+repository = "https://github.com/StrayDragon/dragon"
+homepage = "https://github.com/StrayDragon/dragon"
+keywords=["Commandline tools", "Configs and data management"]
+classifiers = [
+# see https://pypi.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Environment :: Console :: Curses",
+    "Operating System :: POSIX :: Linux",
+    # "Operating System :: OS Independent",
+    # "Programming Language :: Python :: 3.6",
+    # "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
