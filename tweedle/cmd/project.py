@@ -1,6 +1,6 @@
 import click
 
-from dragon.util import cliview, sh
+from tweedle.util import cliview, sh
 
 
 @click.group('project', short_help='Generate a project structure out of the box')

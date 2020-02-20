@@ -1,6 +1,6 @@
 import click
 
-from dragon.util import cliview, sh
+from tweedle.util import cliview, sh
 
 
 class Blog(object):

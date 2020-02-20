@@ -1,7 +1,7 @@
 import pytest
 from click.testing import CliRunner
 
-from dragon.util import sh
+from tweedle.util import sh
 
 
 @pytest.fixture()
@@ -15,10 +15,10 @@ def project_new_runner():
 @pytest.mark.skip('Will rewrite,refer: line 13 in cmd_project')
 def test_passing_only_name(project_new_runner):
     """
-    $ dragon project new test_projected
+    $ tweedle project new test_projected
     """
-    from dragon.cmd.project import new
-    from dragon.util.clickx import ClickDefaultErrorOutput as Error
+    from tweedle.cmd.project import new
+    from tweedle.util.clickx import ClickDefaultErrorOutput as Error
 
     with project_new_runner.isolated_filesystem():
         result = project_new_runner.invoke(new, sh.to_args('test_projected'))
@@ -29,10 +29,10 @@ def test_passing_only_name(project_new_runner):
 @pytest.mark.skip('Will rewrite,refer: line 13 in cmd_project')
 def test_passing_name_and_suited_opt_lang(project_new_runner):
     """
-    $ dragon project new test_projected --lang cpp
+    $ tweedle project new test_projected --lang cpp
     """
     import os
-    from dragon.cmd.project import new
+    from tweedle.cmd.project import new
 
     with project_new_runner.isolated_filesystem():
         result = project_new_runner.invoke(new, sh.to_args('test_projected --lang cpp'))

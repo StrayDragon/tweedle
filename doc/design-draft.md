@@ -20,15 +20,15 @@ usually for some "project/workspace-like" concept situations, it will yield some
 maybe use it looks like:
 
 ```bash
-$ # `dg` is alias of `dragon`
+$ # `td` is alias of `tweedle`
 $ ls -a
 . ..
-$ dg spawn -i # interact mode
-[dragon] Which project type [default]: python
-[dragon] List configs of `python`
-[dragon] 1. poetry.toml  2.pyrightconfig.json
-[dragon] Select [All]:<CR>
-[dragon] Done
+$ td spawn -i # interact mode
+[tweedle] Which project type [default]: python
+[tweedle] List configs of `python`
+[tweedle] 1. poetry.toml  2.pyrightconfig.json
+[tweedle] Select [All]:<CR>
+[tweedle] Done
 $ ls -a
 . .. pyrightconfig.json poetry.toml
 ```

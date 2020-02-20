@@ -1,4 +1,4 @@
-# <p align="center"> Dragon </p>
+# <p align="center"> Tweedle </p>
 [![Build Status](https://travis-ci.org/StrayDragon/dragon.svg?branch=master)](https://travis-ci.org/StrayDragon/dragon)
 <!--TODO:Add more icons-->
 
@@ -17,9 +17,9 @@
 2. You can fork or just clone my repo to modify something:
 
 ```bash
-git clone https://github.com/StrayDragon/dragon.git # master repo
+git clone https://github.com/StrayDragon/tweedle.git # master repo
 
-cd dragon
+cd Tweedle
 poetry install
 poetry shell
 
@@ -31,5 +31,6 @@ pytest
 
 - For User:
  *Coming soon*
+
 # Usages:
 TODO

@@ -2,7 +2,7 @@ from typing import Dict
 
 import toml
 
-from dragon import PROJECT_ROOT
+from tweedle import PROJECT_ROOT
 
 stubs_path = PROJECT_ROOT / 'stubs' / 'old'
 

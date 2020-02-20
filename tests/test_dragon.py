@@ -11,7 +11,7 @@ def cli_runner():
 
 
 def test_self_can_startup_well(cli_runner):
-    from dragon.entry import cli
+    from tweedle.entry import cli
     with cli_runner.isolated_filesystem():
         result = cli_runner.invoke(cli, '--help')
     assert result.exit_code == 0
@@ -19,9 +19,9 @@ def test_self_can_startup_well(cli_runner):
 
 
 def test_sub_cmd_can_startup_well(cli_runner):
-    from dragon.cmd import project
-    from dragon.cmd import blog
-    from dragon.cmd import spawn
+    from tweedle.cmd import project
+    from tweedle.cmd import blog
+    from tweedle.cmd import spawn
     results = []
     with cli_runner.isolated_filesystem():
         results.append(cli_runner.invoke(project.cli, '--help'))

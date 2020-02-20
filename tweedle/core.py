@@ -4,12 +4,12 @@ from importlib import import_module
 
 import click
 
-from dragon import PROJECT_SRC, __version__
+from tweedle import PROJECT_SRC, __version__
 
 SUBCMDS_FOLDER = PROJECT_SRC / 'cmd'
 
 
-class DragonSubCommandsCLI(click.MultiCommand):
+class TweedleSubCommandsCLI(click.MultiCommand):
     def list_commands(self, ctx):
         return [
             str(x.name)[:-3] for x in SUBCMDS_FOLDER.glob('*.py')
@@ -17,11 +17,11 @@ class DragonSubCommandsCLI(click.MultiCommand):
         ]
 
     def get_command(self, ctx, name):
-        mod = import_module(name=f'.cmd.{name}', package='dragon')
+        mod = import_module(name=f'.cmd.{name}', package='tweedle')
         return getattr(mod, 'cli')
 
 
-@click.command(name='Dragon', cls=DragonSubCommandsCLI)
+@click.command(name='Dragon', cls=TweedleSubCommandsCLI)
 @click.version_option(version=__version__)
 @click.help_option()
 def cli():
