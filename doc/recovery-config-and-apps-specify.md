@@ -8,15 +8,15 @@
 - autostart-shell-script
 - [x] (neo)vim
 - [x] ranger
-- [ ] pyenv
+- [-] pyenv
 - [x] zshrc
-  - [ ] OMZ-plugins
-- [ ] xmodmap (Esc&Tab keymaps change)
-- [ ] pip mirror config
-- [ ] npm mirror config
+  - [-] OMZ-plugins
+- [-] xmodmap (Esc&Tab keymaps change)
+- [-] pip mirror config
+- [-] npm mirror config
 - [x] git global config
 - [x] proxychains
-- [ ] alacritty
+- [-] alacritty
 
 
 > My apps that easily recovery by pkg manager
@@ -27,10 +27,12 @@
 - exa
 - tokio
 - fzf
+- ag,rp...(CtrlSF.vim)
 - pipx list
 - pacman dumps apps and others
 
 
 > Others
+- Jetbrains Mono
 - NerdFont
 - ChineseFonts: WQY, Adobe Source ...

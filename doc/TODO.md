@@ -20,6 +20,7 @@
     - bumpversion config
     - gitignore
     - poetry config
+- [ ] docker support
 # TODO Refactor table
 | priority | keyword | occurrence location | problem | defect (hidden danger) | reconstruction means | reconstruction may bring improvement | current status | last update date |
 |---|---|--- |---|---|---|---|---|---|
