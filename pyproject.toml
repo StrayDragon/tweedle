@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dragon"
+name = "tweedle"
 version = "0.0.1"
 description = "A CLI tool for manage appconfigs and archive data"
 authors = ["straydragon <straydragonl@foxmail.com>"]
