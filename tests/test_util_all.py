@@ -3,11 +3,11 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from dragon.util import archive, cliview, fs, sh
+from tweedle.util import archive, cliview, fs, sh
 
 
 def test_shell_run(mocker):
-    mocker.patch('dragon.util.sh.run')
+    mocker.patch('tweedle.util.sh.run')
     sh.run('ls -l')
     sh.run.assert_called_once_with('ls -l')
 
@@ -20,7 +20,7 @@ def test_shell_to_args():
 
 @pytest.mark.skip('Should have at least one assertion statement,but not')
 def test_terminal_printx():
-    from dragon.util.clickx import Colors
+    from tweedle.util.clickx import Colors
     some_log = [('This is Red ', Colors.Magenta), ('This is Blue', Colors.Blue)]
     cliview.display(some_log)
 

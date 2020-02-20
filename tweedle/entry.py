@@ -1,7 +1,7 @@
 from munch import Munch
 
-from dragon import PROJECT_NAME
-from dragon.core import cli
+from tweedle import PROJECT_NAME
+from tweedle.core import cli
 
 
 def main():

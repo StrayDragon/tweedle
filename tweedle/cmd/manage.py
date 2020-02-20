@@ -10,8 +10,8 @@ import click
 import toml
 from munch import munchify
 
-from dragon import PROJECT_NAME, PROJECT_ROOT
-from dragon.util import archive, clickx, fs, sh
+from tweedle import PROJECT_NAME, PROJECT_ROOT
+from tweedle.util import archive, clickx, fs, sh
 
 dev_ignore_this_field = field(init=False)
 BACKUP_RECOVERY_METAINFO_FILE_NAME = f'__{PROJECT_NAME}_backup_recovery_stub__.toml'
@@ -110,8 +110,8 @@ def prepare_to_backup_existing_app_configs_tutor():
         # __import__('pprint').pp(app_config_path)
 
     # NOTE: 抓取配置至置顶文件夹(仓库)
-    click.secho("\nGrab all hit configs to /tmp/.dragon/external_app_configs", fg='yellow')
-    target_dir: Path = Path('/tmp') / '.dragon' / 'external_app_configs_repo'
+    click.secho("\nGrab all hit configs to /tmp/.tweedle/external_app_configs", fg='yellow')
+    target_dir: Path = Path('/tmp') / '.tweedle' / 'external_app_configs_repo'
     ####
     try:
         shutil.rmtree(target_dir)
@@ -242,7 +242,7 @@ def backup(backup_stub_path: Path):
     #     backup_stub_path = Path.cwd() / f'{PROJECT_NAME}_backup_stub.toml'
     # if not backup_stub_path.exists():
     #     click.secho(
-    #         f"not found backup description, check out 'dragon manage backup --help'",
+    #         f"not found backup description, check out 'tweedle manage backup --help'",
     #         err=True,
     #         fg='red',
     #     )

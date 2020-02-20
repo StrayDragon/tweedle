@@ -7,6 +7,6 @@ before_install:
 install:
   - poetry install
 script:
-  - poetry run flake8 dragon/* tests/* --count --select=E9,F63,F7,F82 --show-source --statistics
-  - poetry run flake8 dragon/* tests/* --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  - poetry run flake8 tweedle/* tests/* --count --select=E9,F63,F7,F82 --show-source --statistics
+  - poetry run flake8 tweedle/* tests/* --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   - poetry run pytest

@@ -1,5 +1,5 @@
 import pytest
-from dragon.util import sh
+from tweedle.util import sh
 from click.testing import CliRunner
 
 toml_txt = """
@@ -27,7 +27,7 @@ def test_study_basic():
 def test_common_cmd(mocker):
     runner = CliRunner()
     with runner.isolated_filesystem():
-        mocked = mocker.patch('dragon.util.sh.run')
+        mocked = mocker.patch('tweedle.util.sh.run')
         sh.run('ls -l')
         assert mocked.called
         sh.run.assert_called_once_with('ls -l')
@@ -38,7 +38,7 @@ def test_shell_converter():
     import toml
     from munch import Munch
     from typing import List
-    t = toml.load('../dragon/res/bundles/dkr.toml')
+    t = toml.load('../tweedle/res/bundles/dkr.toml')
     bundle_info = Munch.fromDict(t)
 
     def export(target: List[Munch], to=None, strategy=None):
