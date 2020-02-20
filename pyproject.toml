@@ -30,6 +30,7 @@ rope = "^0.16.0"
 tox = "^3.14.5"
 bump2version = "^1.0.0"
 pre-commit = "^2.1.0"
+python-box = "^4.0.4"
 
 [tool.poetry.scripts]
 dragon = 'dragon.entry:main'
