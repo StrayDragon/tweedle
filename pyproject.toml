@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dragon"
-version = "0.0.0"
+version = "0.0.1"
 description = "A CLI tool for manage appconfigs and archive data"
 authors = ["straydragon <straydragonl@foxmail.com>"]
 readme = 'README.md'
