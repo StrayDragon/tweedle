@@ -21,9 +21,9 @@ class TweedleSubCommandsCLI(click.MultiCommand):
         return getattr(mod, 'cli')
 
 
-@click.command(name='Dragon', cls=TweedleSubCommandsCLI)
+@click.command(name='tweedle', cls=TweedleSubCommandsCLI)
 @click.version_option(version=__version__)
 @click.help_option()
 def cli():
-    """Welcome to use Dragon, enjoy it and be efficient :P"""
+    """Welcome to use tweedle, enjoy it and be efficient :P"""
     pass

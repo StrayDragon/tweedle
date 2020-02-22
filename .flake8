@@ -6,5 +6,5 @@ exclude = tests/*, out/*, typeings/*
 max-complexity = 10
 
 #+[flake-import-order]
-application-import-names = dragon,tests,scripts
+application-import-names = tweedle, tests, scripts
 import-order-style = pycharm

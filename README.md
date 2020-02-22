@@ -19,7 +19,7 @@
 ```bash
 git clone https://github.com/StrayDragon/tweedle.git # master repo
 
-cd Tweedle
+cd tweedle
 poetry install
 poetry shell
 
