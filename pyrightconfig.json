@@ -1,21 +1,21 @@
 {
-  "include": [
-    "dragon",
-    "tests",
-    "scripts"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "**/__pycache__"
-  ],
-  "venv": ".venv",
-  "venvPath": ".",
-  "typingsPath": "typeings",
-  "reportTypeshedErrors": true,
-  "reportMissingImports": true,
-  "reportMissingTypeStubs": false,
-  "reportUnknownMemberType": false,
-  "typeshedPath": "",
-  "pythonVersion": "3.8",
-  "pythonPlatform": "Linux"
+    "include": [
+        "tweedle",
+        "tests",
+        "scripts"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__"
+    ],
+    "venv": ".venv",
+    "venvPath": ".",
+    "typingsPath": "typeings",
+    "reportTypeshedErrors": true,
+    "reportMissingImports": true,
+    "reportMissingTypeStubs": false,
+    "reportUnknownMemberType": false,
+    "typeshedPath": "",
+    "pythonVersion": "3.8",
+    "pythonPlatform": "Linux"
 }
