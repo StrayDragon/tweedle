@@ -1,11 +1,11 @@
-from munch import Munch
+from box import Box
 
 from tweedle import PROJECT_NAME
 from tweedle.core import cli
 
 
 def main():
-    cli(auto_envvar_prefix=PROJECT_NAME, obj=Munch())
+    cli(auto_envvar_prefix=PROJECT_NAME, obj=Box(default_box=True))
 
 
 if __name__ == "__main__":
