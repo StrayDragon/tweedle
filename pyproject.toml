@@ -8,8 +8,8 @@ license = "MIT"
 repository = "https://github.com/StrayDragon/tweedle"
 homepage = "https://github.com/StrayDragon/tweedle"
 keywords=["Commandline tools", "Configs and data management"]
-classifiers = [
 # see https://pypi.org/pypi?%3Aaction=list_classifiers
+classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Environment :: Console",
     "Environment :: Console :: Curses",
@@ -22,7 +22,16 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
 ]
+# see https://python-poetry.org/docs/pyproject/#packages
+packages = [
+    { include = "tweedle" },
+]
 
+# see https://python-poetry.org/docs/pyproject/#include-and-exclude
+include =  [
+    "stubs/*.toml", # `tweedle backup` needed this data
+    # "scripts/*",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
