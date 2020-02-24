@@ -428,6 +428,11 @@ def recovery(archived_file_path):
         good_paths = [Path(p) for p in stub.recovery.archive_file.irrelevant_recovery_paths]
         with click.progressbar(good_paths, label='recovering') as bar:
             for good in bar:
-                # print(f'move {temp_dir / good.name} -> {home_path / good.parent}')
-                shutil.move(str(temp_dir / good.name), str(home_path / good.parent))
+                src = temp_dir / good.name
+                dest = home_path / good.parent
+                try:
+                    shutil.move(str(src), str(dest))
+                except shutil.Error as e:
+                    click.secho(f'failed : move {src} to {dest}, skip this', fg='yellow')
+                    click.secho(f'reasons: {e}', fg='red')
         click.secho(f'Done. ´ ▽ ` )ﾉ`')
