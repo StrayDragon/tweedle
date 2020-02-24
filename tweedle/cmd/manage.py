@@ -170,20 +170,27 @@ def prepare_to_backup_existing_app_configs_tutor():
             subprocess.run(shlex.split(f"git push -u origin master"))
 
 
-@click.group(invoke_without_command=True)
+# @click.group(invoke_without_command=True)
+@click.group()
 @click.pass_context
+@clickx.option_of_common_help
 def cli(ctx):
-    if ctx.invoked_subcommand is None:
-        click.secho(
-            "this tutor will help you to create a configurations file(stub.toml) to hold:",
-            fg='yellow',
-        )
-        managables = "app configs", "backup or recovery archive file"
-        for managable in managables:
-            click.secho(f'\t - {managable}', fg='green')
-        if click.confirm('continue?', abort=True):
-            # TODO: create user manage configurations file
-            pass
+    """
+    manage to backup or recovery app configs and user data\n
+    """
+    # run `tweedle manage` will help user to create manage configurations file
+    # if ctx.invoked_subcommand is None:
+    #     click.secho(
+    #         "this tutor will help you to create a configurations file(stub.toml) to hold:",
+    #         fg='yellow',
+    #     )
+    #     managables = "app configs", "backup or recovery archive file"
+    #     for managable in managables:
+    #         click.secho(f'\t - {managable}', fg='green')
+    #     if click.confirm('continue?', abort=True):
+    #         # TODO: create user manage configurations file
+    #         pass
+    pass
 
 
 # @cli.command()
@@ -212,7 +219,6 @@ def check_and_convert_path(value):
 
 
 @cli.command()
-@click.help_option()
 @click.option(
     '-i',
     '--backup-stub-file',
@@ -220,9 +226,11 @@ def check_and_convert_path(value):
     # type=clickx.Path(exists=True, file_okay=True, dir_okay=True),
     # required=True,
     callback=check_and_convert_path,
+    help="specific stub file path",
 )
+@clickx.option_of_common_help
 def backup(backup_stub_path: Path):
-    """"""
+    """backup user data to archived data"""
     if not backup_stub_path:
         if click.confirm(
                 'Ensure to step into backup git managable configs tutor?',
@@ -333,16 +341,18 @@ def backup(backup_stub_path: Path):
 
 
 @cli.command()
-@click.help_option()
 @click.option(
     '-i',
     '--archive-file',
     'archived_file_path',
     required=False,
     callback=check_and_convert_path,
+    help="specific archived file path",
 )
+@clickx.option_of_common_help
 # @click.option('-o', '--configs', 'app_configs')
 def recovery(archived_file_path):
+    """recovery appconfigs or archived data with auto recovery stub"""
     if not archived_file_path:
         if click.confirm(
                 'Ensure to step into recovery git managable configs tutor?',
