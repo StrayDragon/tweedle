@@ -169,3 +169,7 @@ def noncontext_callback(f):
         return f(value)
 
     return fake_callback
+
+
+option_of_common_help = click.help_option(help="show usages details")
+option_of_not_implement_help = click.help_option(help="Sorry, this command is not implemented now!")
