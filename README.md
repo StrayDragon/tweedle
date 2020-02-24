@@ -1,11 +1,11 @@
 # <p align="center"> Tweedle </p>
 [![Build Status](https://travis-ci.org/StrayDragon/tweedle.svg?branch=master)](https://travis-ci.org/StrayDragon/tweedle)
-![GitHub last commit](https://img.shields.io/github/last-commit/straydragon/tweedle)
-![PyPI](https://img.shields.io/pypi/v/tweedle)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tweedle)
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/tweedle)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/straydragon/tweedle)
-![PyPI - License](https://img.shields.io/pypi/l/tweedle)
+[![GitHub last commit](https://img.shields.io/github/last-commit/straydragon/tweedle)](https://github.com/StrayDragon/tweedle/commits)
+[![PyPI](https://img.shields.io/pypi/v/tweedle)](https://pypi.org/project/tweedle)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tweedle)](https://pypi.org/project/tweedle)
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/tweedle)](https://pypi.org/project/tweedle)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/w/straydragon/tweedle)](https://github.com/StrayDragon/tweedle/commits)
+[![PyPI - License](https://img.shields.io/pypi/l/tweedle)](https://github.com/StrayDragon/tweedle/blob/master/LICENSE)
 <!--TODO:Add more icons see https://shields.io-->
 
 - Configs manager and controller
