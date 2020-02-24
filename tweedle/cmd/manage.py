@@ -8,7 +8,7 @@ from typing import Dict, List
 
 import click
 import toml
-from munch import munchify
+from box import Box
 
 from tweedle import PROJECT_NAME, PROJECT_ROOT
 from tweedle.util import archive, clickx, fs, sh
@@ -257,7 +257,7 @@ def backup(backup_stub_path: Path):
     #     raise click.Abort()
 
     # 1. Find and deserialize user defined backup configs file
-    stub = munchify(toml.load(backup_stub_path))
+    stub = Box.from_toml(str(backup_stub_path))
 
     # 2. Display collected infos
     backup_paths = stub.backup.paths
@@ -426,8 +426,8 @@ def recovery(archived_file_path):
         archive.extract_all(archived_file_path, temp_dir)
 
         # retrieve description file (BACKUP_RECOVERY_METAINFO_FILE_NAME.toml) path
-        df = temp_dir / BACKUP_RECOVERY_METAINFO_FILE_NAME
-        stub = munchify(toml.load(df))
+        df: Path = temp_dir / BACKUP_RECOVERY_METAINFO_FILE_NAME
+        stub = Box.from_toml(str(df))
         if not stub.backup.archive_file.auto_recovery:
             click.secho('detect auto_recovery=False, cleanup...')
             click.Abort()

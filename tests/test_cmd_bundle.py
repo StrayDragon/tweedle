@@ -35,13 +35,11 @@ def test_common_cmd(mocker):
 
 @pytest.mark.skip()
 def test_shell_converter():
-    import toml
-    from munch import Munch
+    from box import Box
     from typing import List
-    t = toml.load('../tweedle/res/bundles/dkr.toml')
-    bundle_info = Munch.fromDict(t)
+    bundle_info = Box.from_toml('../tweedle/res/bundles/dkr.toml')
 
-    def export(target: List[Munch], to=None, strategy=None):
+    def export(target: List[Box], to=None, strategy=None):
         assert strategy, "Required a strategy for choosing a way to export!"
         return strategy(target)
 
