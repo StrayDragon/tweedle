@@ -15,5 +15,6 @@
   "python.linting.pylamaEnabled": false,
   "pyright.useLibraryCodeForTypes": true,
   "pyright.disableLanguageServices": true,
-  "pyright.openFilesOnly": true
+  "pyright.openFilesOnly": true,
+  "python.diagnostics.sourceMapsEnabled": true
 }
