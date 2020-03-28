@@ -1,3 +1,4 @@
+import inspect
 import os
 import stat
 from functools import update_wrapper, wraps
@@ -5,26 +6,7 @@ from importlib import import_module
 
 import click
 from click._compat import filename_to_ui
-
-
-class ClickDefaultErrorOutput(object):
-    MISS_OPT = 'Missing option'
-    NO_OPT = 'no such option:'
-    RQR_OPT = 'option requires an argument'
-    CHOOSE_OPT = 'invalid choice'
-
-
-class Colors:
-    Black = 'black'
-    Gray = 'black'
-    Green = 'green'
-    Yellow = 'yellow'
-    Blue = 'blue'
-    Magenta = 'magenta'
-    Cyan = 'cyan'
-    White = 'white'
-    LightGray = 'white'
-    RESET = 'reset'
+from click.formatting import join_options
 
 
 def pass_props(f):
@@ -173,3 +155,64 @@ def noncontext_callback(f):
 
 option_of_common_help = click.help_option(help="show usages details")
 option_of_not_implement_help = click.help_option(help="Sorry, this command is not implemented now!")
+
+
+class NoneType(click.ParamType):
+    name = "NoneType"
+
+    def convert(self, value, param, ctx):
+        return None
+
+
+none_type = NoneType()
+
+
+class OptionWithCustomShowDefault(click.Option):
+    def get_help_record(self, ctx):
+        if self.hidden:
+            return
+        any_prefix_is_slash = []
+
+        def _write_opts(opts):
+            rv, any_slashes = join_options(opts)
+            if any_slashes:
+                any_prefix_is_slash[:] = [True]
+            if not self.is_flag and not self.count:
+                rv += ' ' + self.make_metavar()
+            return rv
+
+        rv = [_write_opts(self.opts)]
+        if self.secondary_opts:
+            rv.append(_write_opts(self.secondary_opts))
+
+        help = self.help or ''
+        extra = []
+        if self.show_envvar:
+            envvar = self.envvar
+            if envvar is None:
+                if self.allow_from_autoenv and ctx.auto_envvar_prefix is not None:
+                    envvar = '%s_%s' % (ctx.auto_envvar_prefix, self.name.upper())
+            if envvar is not None:
+                extra.append(
+                    'env var: %s' %
+                    (', '.join('%s' % d
+                               for d in envvar) if isinstance(envvar, (list, tuple)) else envvar, ))
+        if self.default is not None and self.show_default:
+            # if isinstance(self.show_default, string_types):
+            if isinstance(self.show_default, str):
+                default_string = '({})'.format(self.show_default)
+            elif isinstance(self.default, (list, tuple)):
+                default_string = ', '.join('%s' % d for d in self.default)
+            elif inspect.isfunction(self.default):
+                default_string = "(dynamic)"
+            else:
+                default_string = self.default
+            # extra.append('default: {}'.format(default_string))
+            extra.append('DetectedType: {}'.format(default_string))
+
+        if self.required:
+            extra.append('required')
+        if extra:
+            help = '%s[%s]' % (help and help + '  ' or '', '; '.join(extra))
+
+        return ((any_prefix_is_slash and '; ' or ' / ').join(rv), help)
