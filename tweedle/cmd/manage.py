@@ -1,3 +1,4 @@
+import logging
 import shlex
 import shutil
 import subprocess
@@ -11,7 +12,9 @@ import toml
 from box import Box
 
 from tweedle import PROJECT_NAME, PROJECT_ROOT
-from tweedle.util import archive, clickx, fs, sh
+from tweedle.util import archive, clickx, fs, log, sh
+
+logger = logging.getLogger(__name__)
 
 dev_ignore_this_field = field(init=False)
 BACKUP_RECOVERY_METAINFO_FILE_NAME = f'__{PROJECT_NAME}_backup_recovery_stub__.toml'
@@ -174,6 +177,7 @@ def prepare_to_backup_existing_app_configs_tutor():
 @click.group()
 @click.pass_context
 @clickx.option_of_common_help
+@log.option_with_verbose_cnt(logger)
 def cli(ctx):
     """
     manage to backup or recovery app configs and user data\n
@@ -189,12 +193,23 @@ def cli(ctx):
     #         click.secho(f'\t - {managable}', fg='green')
     #     if click.confirm('continue?', abort=True):
     #         # TODO: create user manage configurations file
-    #         pass
+
+    # logger.info(f'[INFO] {PROJECT_NAME} starting')
+    # logger.error(f'[ERROR] {PROJECT_NAME} get error')
+    # logger.debug(f'[DEBUG] {PROJECT_NAME} get debug')
+    # logger.warning(f'[WARNING] {PROJECT_NAME} get warning')
+    # logger.critical(f'[!!!] {PROJECT_NAME} get critical')
     pass
 
 
 # @cli.command()
+# @log.option_with_verbose_cnt(logger)
 # def info():
+#     logger.info(f'[INFO] {PROJECT_NAME} info starting')
+#     logger.error(f'[ERROR] {PROJECT_NAME} info get error')
+#     logger.debug(f'[DEBUG] {PROJECT_NAME} info get debug')
+#     logger.warning(f'[WARNING] {PROJECT_NAME} info get warning')
+#     logger.critical(f'[!!!] {PROJECT_NAME} info get critical')
 #     click.secho("info searching...", fg='green')
 
 # @cli.command()
@@ -231,6 +246,7 @@ def check_and_convert_path(value):
 @clickx.option_of_common_help
 def backup(backup_stub_path: Path):
     """backup user data to archived data"""
+
     if not backup_stub_path:
         if click.confirm(
                 'Ensure to step into backup git managable configs tutor?',
