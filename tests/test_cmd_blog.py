@@ -15,20 +15,26 @@ def check_command_invokable(*commands) -> bool:
     return False
 
 
-@pytest.fixture(scope="module")
-def blog_runner():
-    # Setup
-    runner = CliRunner()
-    yield runner
-    # Tear Down
+import click
+
+
+@click.command()
+def edit():
+    pass
+
+
+class TestManageBlog(object):
+    def test_create_new_blog(self, cli_runner: CliRunner):
+        cli_runner.invoke(edit)
+        pass
 
 
 @pytest.mark.skipif(condition=check_command_invokable('hexo'),
                     reason=f"Command: 'hexo' may not satisfied in local environment. skip test!")
-def test_publish(blog_runner):
+def test_publish(cli_runner: CliRunner):
     from tweedle.cmd.blog import publish
-    with blog_runner.isolated_filesystem():
-        state = blog_runner.invoke(publish, sh.to_args('-P test'))
+    with cli_runner.isolated_filesystem():
+        state = cli_runner.invoke(publish, sh.to_args('-P test'))
     for cmd in Blog.publish_commands:
         assert cmd in state.output
 
@@ -36,9 +42,9 @@ def test_publish(blog_runner):
 @pytest.mark.skipif(
     condition=check_command_invokable('hexo', 'git'),
     reason=f"Command: 'hexo' or 'git' may not satisfied in local environment. skip test!")
-def test_finish(blog_runner):
+def test_finish(cli_runner: CliRunner):
     from tweedle.cmd.blog import finish
-    with blog_runner.isolated_filesystem():
-        state = blog_runner.invoke(finish, sh.to_args('-P test'))
+    with cli_runner.isolated_filesystem():
+        state = cli_runner.invoke(finish, sh.to_args('-P test'))
     for cmd in Blog.finish_commands:
         assert cmd in state.output
