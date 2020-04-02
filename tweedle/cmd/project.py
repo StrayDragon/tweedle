@@ -217,7 +217,7 @@ def spawn():
     if not temp_project_config_templates_root_path.exists():
         click.secho("Not Found Temp 'ProjectConfigTemplates'", fg='red')
         raise click.Abort()
-    temp_py_root_path: Path = temp_project_config_templates_root_path / 'Python3'
+    temp_py_root_path: Path = temp_project_config_templates_root_path
     temp_py_root_path.mkdir(parents=True, exist_ok=True)
     # temp_js_root_path = temp_project_config_templates_root_path / 'JavaScript'
     # temp_vim_root_path = temp_project_config_templates_root_path / 'Vim'
@@ -234,6 +234,9 @@ def spawn():
         ('bump2version config', '.bumpversion.cfg', '.'),
         ('flake8', '.flake8', '.'),
         ('coc-setting(python)', 'coc-settings.json', '.vim/coc-setting.json'),
+    }
+    box.webfront = {
+        ('prettier', 'prettier.config.js', '.'),
     }
     # box.javascript = ['eslint', 'webpack.config']
     # box.git = ['.gitconfig', '.gitignore']
@@ -261,7 +264,7 @@ def spawn():
             if name == k[0]:
                 filename, rela_cwd_path = k[1], k[2]
                 break
-        src_path = str(temp_py_root_path / filename)
+        src_path = str(temp_py_root_path / lang / filename)
         dest_path: Path = Path.cwd() / rela_cwd_path / filename
         dest_path.parent.mkdir(exist_ok=True, parents=True)
         skip = True
