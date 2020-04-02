@@ -37,7 +37,7 @@ def use_option_like_argument(value):
     return value
 
 
-@click.group()
+@click.group(name='project')
 def cli():
     pass
 

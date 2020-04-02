@@ -174,7 +174,7 @@ def prepare_to_backup_existing_app_configs_tutor():
 
 
 # @click.group(invoke_without_command=True)
-@click.group()
+@click.group(name='manage')
 @click.pass_context
 @clickx.option_of_common_help
 @log.option_with_verbose_cnt(logger)

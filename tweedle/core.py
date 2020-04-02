@@ -2,17 +2,14 @@ __all__ = ["cli"]
 
 import logging
 import os
-from importlib import import_module
 from pathlib import Path
 
 import attr
 import click
 from box import Box
 
-from tweedle import PROJECT_NAME, PROJECT_SRC, __version__
+from tweedle import PROJECT_NAME, __version__
 from tweedle.util import clickx, fs
-
-SUBCMDS_FOLDER = PROJECT_SRC / 'cmd'
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -80,47 +77,10 @@ class Tweedle(RawTypeSerializationMixin):
         return o
 
 
-class TweedleSubCommandsCLI(click.MultiCommand):
-    def __init__(self,
-                 name=None,
-                 invoke_without_command=False,
-                 no_args_is_help=None,
-                 subcommand_metavar=None,
-                 chain=False,
-                 result_callback=None,
-                 **attrs):
-        super().__init__(name=name,
-                         invoke_without_command=invoke_without_command,
-                         no_args_is_help=no_args_is_help,
-                         subcommand_metavar=subcommand_metavar,
-                         chain=chain,
-                         result_callback=result_callback,
-                         **attrs)
-        self.invoke_without_command = True
-
-    def list_commands(self, ctx):
-        # return [
-        #     str(x.name)[:-3] for x in SUBCMDS_FOLDER.glob('*.py')
-        #     if not x.name.startswith('__init__')
-        # ]
-        subcmds = [
-            'manage',
-            'project',
-        ]
-        return subcmds
-
-    def get_command(self, ctx, name):
-        mod = import_module(name=f'.cmd.{name}', package='tweedle')
-        return getattr(mod, 'cli')
-
-
-# from tweedle.util import log
-
-
-@click.command(name='tweedle', cls=TweedleSubCommandsCLI)
+@clickx.with_plugins(f'{PROJECT_NAME.lower()}.plugins')
+@click.group(f'{PROJECT_NAME.lower()}')
 @click.version_option(help='show version details', version=__version__)
 @clickx.option_of_common_help
-# @log.option_with_verbose_cnt(logger)
 @click.pass_context
 def cli(ctx):
     """
@@ -144,6 +104,9 @@ def cli(ctx):
 
 
 def main():
+    from tweedle.cmd import manage, project
+    cli.add_command(manage.cli)
+    cli.add_command(project.cli)
     cli(
         auto_envvar_prefix=PROJECT_NAME,
         obj=Tweedle.init(generate_default_config=True),

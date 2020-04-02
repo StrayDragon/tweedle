@@ -7,6 +7,25 @@ from importlib import import_module
 import click
 from click._compat import filename_to_ui
 from click.formatting import join_options
+from click_plugins import with_plugins as __with_plugins
+from pkg_resources import iter_entry_points
+
+# click-plugins
+# usage:
+# ```
+#   ...
+#   # must on the top of your @click.group
+#   @clickx.with_plugins(iter_entry_points('<CLINAME>.plugins'))
+#   @...
+#   ...
+# ```
+# more details: https://github.com/click-contrib/click-plugins
+#              https://github.com/click-contrib/click-plugins/tree/master/example
+
+
+def with_plugins(entry_point: str):
+    decorator = __with_plugins(iter_entry_points(entry_point))
+    return decorator
 
 
 def pass_props(f):
