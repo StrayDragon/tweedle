@@ -1,4 +1,4 @@
-# <p align="center"> Tweedle </p>
+# <p align="center"> :snake:Tweedle </p>
 
 [![Build Status](https://travis-ci.org/StrayDragon/tweedle.svg?branch=master)](https://travis-ci.org/StrayDragon/tweedle)
 [![GitHub last commit](https://img.shields.io/github/last-commit/straydragon/tweedle)](https://github.com/StrayDragon/tweedle/commits)
@@ -10,7 +10,10 @@
 
 <!--TODO:Add more icons see https://shields.io-->
 
+Features:
+
 - Configs manager and controller
+- Project configs helper
 <!-- - Commands manager and controller -->
 
 ---
@@ -26,6 +29,7 @@
 
 ## For Developer:
 
+0. Checkout [issues](https://github.com/StrayDragon/tweedle/issues) and this repo [project](https://github.com/StrayDragon/tweedle/projects/1?fullscreen=true) plan, search for what you are interested in or give me suggestions
 1. At first, you need to install [poetry](https://poetry.eustace.io/)
 2. You can fork or just clone my repo to modify something locally:
 
