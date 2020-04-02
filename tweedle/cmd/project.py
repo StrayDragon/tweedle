@@ -39,6 +39,9 @@ def use_option_like_argument(value):
 
 @click.group(name='project')
 def cli():
+    """
+    control your project workspace
+    """
     pass
 
 
@@ -204,6 +207,10 @@ def init_monkey_patch():
 @cli.command()
 @clickx.option_of_common_help
 def spawn():
+    """
+    [WIP] spawn project default configs\n
+    WARNING: Current implementation is not completed, please do not use this cmd in real workspace
+    """
     import shutil
     # FIXME: Temp code !!!
     temp_project_config_templates_root_path = Path("~/Repo/ProjectConfigTemplates").expanduser()
@@ -255,18 +262,23 @@ def spawn():
                 filename, rela_cwd_path = k[1], k[2]
                 break
         src_path = str(temp_py_root_path / filename)
-        dest_path: Path = Path.cwd() / rela_cwd_path
-        if click.confirm(click.style(f'\n{filename}', fg='blue') + ' already exist, overwrite? '):
-            dest_path.parent.mkdir(exist_ok=True, parents=True)
-            dest_path = str(dest_path)
-
+        dest_path: Path = Path.cwd() / rela_cwd_path / filename
+        dest_path.parent.mkdir(exist_ok=True, parents=True)
+        skip = True
+        is_exist = False
+        if dest_path.exists():
+            is_exist = True
+            if click.confirm(
+                    click.style(f'\n{filename}', fg='blue') + ' already exist, overwrite? '):
+                skip = False
+            else:
+                click.secho('skiping...', fg='green')
+        if not skip or not is_exist:
             msg = "Copying " + click.style(f"{filename:<24}", fg='blue') + "to " + click.style(
                 f"{rela_cwd_path:<14}\t", fg='blue')
             click.echo(msg, nl=False)
-            shutil.copy(src_path, dest_path)
+            shutil.copy(src_path, str(dest_path))
             click.secho("Done", fg='green')
-        else:
-            click.secho('skiping...', fg='green')
     click.secho("\nHave a fun day and enjoy coding :)")
 
     # choice = inquirer.list_input("Public or private?", choices=['public', 'private'])
