@@ -83,7 +83,7 @@ Commands:
 
 ## Control your project by spawning specific configs
 
-![GqTjq1.gif](https://s1.ax1x.com/2020/04/12/GqTjq1.gif)
+![Gq77wt.gif](https://s1.ax1x.com/2020/04/12/Gq77wt.gif)
 
 > if your want to try it now, use [pipx](https://github.com/pipxproject/pipx) to install it and DO NOT RUN COMMANDS IN YOUR REAL WORKING SPACE
 >
