@@ -46,10 +46,7 @@ def test_shell_converter():
         return strategy(target)
 
     def pack_to_shell(b):
-        res = ''
-        for _ in b:
-            res += _
-        return res
+        return ''.join(b)
 
     shells = [f"# {cmd.name}\n{cmd.exec.strip()}\n" for cmd in bundle_info.Scripts]
 

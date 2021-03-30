@@ -231,17 +231,16 @@ def check_and_convert_path(value):
 @clickx.option_of_common_help
 def backup(backup_stub_path: Path):
     """backup user data to archived data"""
-    if not backup_stub_path:
-        if click.confirm(
-                'Ensure to step into backup git managable configs tutor?',
-                default=True,
-                abort=True,
-                prompt_suffix=' [Yes]/No: ',
-                show_default=False,
-        ):
-            prepare_to_backup_existing_app_configs_tutor()
-            click.secho('Done ´ ▽ ` )ﾉ`')
-            return
+    if not backup_stub_path and click.confirm(
+        'Ensure to step into backup git managable configs tutor?',
+        default=True,
+        abort=True,
+        prompt_suffix=' [Yes]/No: ',
+        show_default=False,
+    ):
+        prepare_to_backup_existing_app_configs_tutor()
+        click.secho('Done ´ ▽ ` )ﾉ`')
+        return
     # 0. Check backup_stub_path correctness: by option callback
     # 1. Find and deserialize user defined backup configs
     #    from Path.cwd() (default) or user defined file
