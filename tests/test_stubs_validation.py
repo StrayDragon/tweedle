@@ -18,12 +18,10 @@ def test_lookup_paths_validation():
         name = r['name']
         config = r['config']
         lookup_paths = config['lookup_paths']
-        order_cnt = 1
         default_hit_unique_cnt = 0
-        for p in lookup_paths:
+        for order_cnt, p in enumerate(lookup_paths, start=1):
             assert has_right_key(p, 'order')
             assert p['order'] == order_cnt, f"{ path.name } error"
-            order_cnt += 1
             assert has_right_key(p, 'path')
             assert has_right_key(p, 'need_auth')
             assert has_right_key(p, 'default_hit')
