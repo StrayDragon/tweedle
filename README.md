@@ -7,6 +7,7 @@
 [![PyPI - Implementation](https://img.shields.io/pypi/implementation/tweedle)](https://pypi.org/project/tweedle)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/w/straydragon/tweedle)](https://github.com/StrayDragon/tweedle/commits)
 [![PyPI - License](https://img.shields.io/pypi/l/tweedle)](https://github.com/StrayDragon/tweedle/blob/master/LICENSE)
+[![Sourcery](https://img.shields.io/badge/Sourcery-enabled-brightgreen)](https://sourcery.ai)
 
 <!--TODO:Add more icons see https://shields.io-->
 
